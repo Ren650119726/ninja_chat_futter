@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:get/get.dart';
-import 'package:chat/theme/color.dart';
-import 'package:chat/theme/tui_theme.dart';
+import 'package:ninja_chat/theme/color.dart';
+import 'package:ninja_chat/theme/tui_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeController extends GetxController {

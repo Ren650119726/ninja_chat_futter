@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:chat/common/const.dart';
-import 'package:chat/page/chats/chats_page.dart';
-import 'package:chat/page/conversation/conversation_page.dart';
-import 'package:chat/page/conversation/home.dart';
-import 'package:chat/page/login/login_controller.dart';
-import 'package:chat/utils/http.dart';
-import 'package:chat/utils/im.dart';
+import 'package:ninja_chat/common/const.dart';
+import 'package:ninja_chat/page/chats/chats_page.dart';
+import 'package:ninja_chat/page/conversation/conversation_page.dart';
+import 'package:ninja_chat/page/conversation/home.dart';
+import 'package:ninja_chat/page/login/login_controller.dart';
+import 'package:ninja_chat/utils/http.dart';
+import 'package:ninja_chat/utils/im.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -118,8 +118,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
               ),
             ),
-            // const Spacer(),
-            10.verticalSpace,
+            const Spacer(),
             ElevatedButton(
               child: const Text("下一步"),
               onPressed: () async {
@@ -154,7 +153,11 @@ class LoginPage extends GetView<LoginController> {
                   UserInfo.uid = uidStr;
                   IMUtils.initIM(uidStr, tokenStr).then((result) {
                     if (result) {
-                      Get.to(()=> const ConversationPage());
+                      // Get.to(()=> const HomePage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const HomePage()));
                     }
                   });
                 }

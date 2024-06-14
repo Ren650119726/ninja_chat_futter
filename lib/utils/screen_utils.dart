@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:chat/utils/platform.dart';
+import 'package:ninja_chat/utils/platform.dart';
 
 enum DeviceType { Desktop, Mobile }
 

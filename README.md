@@ -1,4 +1,4 @@
-# chat
+# ninja_chat
 
 A new Flutter project.
 

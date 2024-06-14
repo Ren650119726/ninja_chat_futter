@@ -1,22 +1,17 @@
 import 'dart:io';
 
-import 'package:chat/stream_chat/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:chat/page/chats/chats_page.dart';
-import 'package:chat/page/frame/frame_page.dart';
-import 'package:chat/page/login/login_page.dart';
-import 'package:chat/stream_chat/stream_chat_app.dart';
-import 'package:chat/theme/theme_controller.dart';
+import 'package:ninja_chat/page/chats/chats_page.dart';
+import 'package:ninja_chat/page/frame/frame_page.dart';
+import 'package:ninja_chat/page/login/login_page.dart';
+import 'package:ninja_chat/theme/theme_controller.dart';
 
-Future<void> main() async{
-  // runApp(const MyApp());
-  // Wait for Sentry and Firebase to initialize before running the app.
-  runApp(const StreamChatSampleApp());
+void main() {
+  runApp(const MyApp());
 }
 
 
@@ -156,7 +151,7 @@ class MyApp extends StatelessWidget {
           builder: EasyLoading.init(
             builder: (context, child) => MediaQuery(
               data: MediaQuery.of(context).copyWith(
-                textScaleFactor: 1.0,
+                textScaler: const TextScaler.linear(1.0),
               ),
               child: child!,
             ),

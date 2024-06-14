@@ -1,4 +1,4 @@
-import 'package:chat/common/const.dart';
+import 'package:ninja_chat/common/const.dart';
 import 'package:wukongimfluttersdk/common/options.dart';
 import 'package:wukongimfluttersdk/entity/channel.dart';
 import 'package:wukongimfluttersdk/model/wk_image_content.dart';
