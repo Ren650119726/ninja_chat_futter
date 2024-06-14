@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:ninja_chat/model/chat.dart';
@@ -13,7 +12,6 @@ class ConversationController extends GetxController {
 
   get connectionStatusStr => ''.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -22,12 +20,14 @@ class ConversationController extends GetxController {
   }
 
   void _getDataList() {
-    WKIM.shared.conversationManager.getAll().then((result) {
+    WKIM.shared.conversationManager.getAll().then((result) async {
+      print(result.length);
       for (var i = 0; i < result.length; i++) {
-        _conversationList.add(Chat.fromConversation(result[i]));
+        _conversationList.add(await Chat.fromConversation(result[i]));
       }
     });
   }
+
 
   _initListener() {
     // 监听连接状态事件
@@ -54,7 +54,7 @@ class ConversationController extends GetxController {
       }
     });
     WKIM.shared.conversationManager
-        .addOnRefreshMsgListListener('chat_conversation', (msgs) {
+        .addOnRefreshMsgListListener('chat_conversation', (msgs) async {
       if (msgs.isEmpty) {
         return;
       }
@@ -69,7 +69,8 @@ class ConversationController extends GetxController {
           }
         }
         if (isAdd) {
-          list.add(Chat.fromConversation(msg));
+          var chat = await Chat.fromConversation(msg);
+          list.add(chat);
         }
       }
       if (list.isNotEmpty) {

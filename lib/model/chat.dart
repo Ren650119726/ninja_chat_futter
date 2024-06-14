@@ -30,64 +30,60 @@ class Chat {
   //是否在线
   bool online = false;
 
-  static Chat fromConversation(WKUIConversationMsg conversation) {
+  static Future<Chat> fromConversation(WKUIConversationMsg conversation) async {
     Chat chat = Chat();
     chat.channelID = conversation.channelID;
-    chat.name = getChannelName(conversation);
-    chat.msg = getShowContent(conversation);
+    chat.name = await getChannelName(conversation);
+    chat.msg = await getShowContent(conversation);
     chat.unread = conversation.unreadCount;
-    chat.portrait = getChannelAvatarURL(conversation);
-    chat.localPortrait = getChannelAvatarURL(conversation);
+    chat.portrait = await getChannelAvatarURL(conversation);
+    chat.localPortrait = await getChannelAvatarURL(conversation);
     chat.lastMsgTimestamp = conversation.lastMsgTimestamp;
-    chat.online = getOnlineStatus(conversation);
+    chat.online = await getOnlineStatus(conversation);
     return chat;
   }
 
-  static String getChannelName(WKUIConversationMsg conversation) {
+  static Future<String> getChannelName(WKUIConversationMsg conversation) async {
     String channelName = "";
-    conversation.getWkChannel().then((channel) {
-      if (channel != null) {
-        if (channel.channelRemark == '') {
-          channelName = channel.channelName;
-        } else {
-          channelName = channel.channelRemark;
-        }
+    var channel = await conversation.getWkChannel();
+    if (channel != null) {
+      if (channel.channelRemark == '') {
+        channelName = channel.channelName;
       } else {
-        WKIM.shared.channelManager
-            .fetchChannelInfo(conversation.channelID, conversation.channelType);
+        channelName = channel.channelRemark;
       }
-    });
+    } else {
+      var fetchChannelInfo = WKIM.shared.channelManager
+          .fetchChannelInfo(conversation.channelID, conversation.channelType);
+    }
     return channelName;
   }
 
-  static String getShowContent(WKUIConversationMsg conversation) {
+  static Future<String> getShowContent(WKUIConversationMsg conversation) async {
     String lastContent = "";
-    conversation.getWkMsg().then((value) {
-      if (value != null && value.messageContent != null) {
-        lastContent = value.messageContent!.displayText();
-      }
-    });
+    var value = await conversation.getWkMsg();
+    if (value != null && value.messageContent != null) {
+      lastContent = value.messageContent!.displayText();
+    }
     return lastContent;
   }
 
-  static String getChannelAvatarURL(WKUIConversationMsg conversation) {
+  static Future<String> getChannelAvatarURL(
+      WKUIConversationMsg conversation) async {
     String channelAvatar = "";
-    conversation.getWkChannel().then((channel) {
-      if (channel != null) {
-        channelAvatar = channel.avatar;
-      }
-      return channelAvatar;
-    });
+    var channel = await conversation.getWkChannel();
+    if (channel != null) {
+      channelAvatar = channel.avatar;
+    }
     return channelAvatar;
   }
 
-  static bool getOnlineStatus(WKUIConversationMsg conversation) {
+  static Future<bool> getOnlineStatus(WKUIConversationMsg conversation) async {
     bool onlineStatus = false;
-    conversation.getWkChannel().then((channel) {
-      if (channel != null) {
-        onlineStatus = channel.online == 1;
-      }
-    });
+    var channel = await conversation.getWkChannel();
+    if (channel != null) {
+      onlineStatus = channel.online == 1;
+    }
     return onlineStatus;
   }
 }
