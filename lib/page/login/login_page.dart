@@ -153,11 +153,7 @@ class LoginPage extends GetView<LoginController> {
                   UserInfo.uid = uidStr;
                   IMUtils.initIM(uidStr, tokenStr).then((result) {
                     if (result) {
-                      // Get.to(()=> const HomePage());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const HomePage()));
+                      Get.to(()=> const HomePage());
                     }
                   });
                 }
