@@ -1,1 +1,0 @@
-ALTER TABLE 'conversation' ADD 'last_msg_seq' BIGINT NOT NULL DEFAULT 0;

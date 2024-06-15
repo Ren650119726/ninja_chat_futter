@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:chat/common/const.dart';
-import 'package:chat/model/chat.dart';
-import 'package:chat/page/chats/chats_item.dart';
-import 'package:chat/page/conversation/conversation_controller.dart';
+import 'package:ninja_chat/common/const.dart';
+import 'package:ninja_chat/model/chat.dart';
+import 'package:ninja_chat/page/chats/chats_item.dart';
+import 'package:ninja_chat/page/conversation/conversation_controller.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 class ConversationPage extends GetView<ConversationController> {

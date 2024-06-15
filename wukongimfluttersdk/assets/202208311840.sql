@@ -1,1 +1,0 @@
-CREATE INDEX IF NOT EXISTS idx_channel_members_role_index ON channel_members (channel_id,channel_type,role);

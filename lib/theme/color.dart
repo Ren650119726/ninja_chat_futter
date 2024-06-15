@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:chat/theme/tui_theme.dart';
+import 'package:ninja_chat/theme/tui_theme.dart';
 
 Color hexToColor(String hexString) {
   return Color(int.parse(hexString, radix: 16)).withAlpha(255);

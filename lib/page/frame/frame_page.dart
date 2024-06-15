@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:chat/page/chats/chats_page.dart';
-import 'package:chat/page/frame/frame_controller.dart';
-import 'package:chat/styles/colors.dart';
-import 'package:chat/widget/common_widget.dart';
+import 'package:ninja_chat/page/chats/chats_page.dart';
+import 'package:ninja_chat/page/frame/frame_controller.dart';
+import 'package:ninja_chat/styles/colors.dart';
+import 'package:ninja_chat/widget/common_widget.dart';
 
 class FramePage extends GetView<FrameController> {
   const FramePage({super.key});

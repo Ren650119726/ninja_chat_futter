@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:chat/common/routes.dart';
-import 'package:chat/model/chat.dart';
-import 'package:chat/page/chats/chats_controller.dart';
-import 'package:chat/widget/common_widget.dart';
-import 'package:chat/widget/unread_message.dart';
+import 'package:ninja_chat/common/routes.dart';
+import 'package:ninja_chat/model/chat.dart';
+import 'package:ninja_chat/page/chats/chats_controller.dart';
+import 'package:ninja_chat/widget/common_widget.dart';
+import 'package:ninja_chat/widget/unread_message.dart';
 
 class ChatsPage extends GetView<ChatsController> {
   const ChatsPage({super.key});

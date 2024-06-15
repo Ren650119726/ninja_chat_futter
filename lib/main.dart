@@ -11,8 +11,9 @@ import 'package:ninja_chat/page/login/login_page.dart';
 import 'package:ninja_chat/stream_chat/stream_chat_app.dart';
 import 'package:ninja_chat/theme/theme_controller.dart';
 
-void main() {
+Future<void> main() async{
   // runApp(const MyApp());
+  // Wait for Sentry and Firebase to initialize before running the app.
   runApp(const StreamChatSampleApp());
 }
 

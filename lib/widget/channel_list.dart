@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
-import 'package:chat/routes/routes.dart';
-import 'package:chat/utils/localizations.dart';
+import 'package:ninja_chat/routes/routes.dart';
+import 'package:ninja_chat/utils/localizations.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 

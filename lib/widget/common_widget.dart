@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:chat/styles/colors.dart';
-import 'package:chat/widget/unread_message.dart';
+import 'package:ninja_chat/styles/colors.dart';
+import 'package:ninja_chat/widget/unread_message.dart';
 import 'package:shimmer/shimmer.dart';
 
 //获取半透明的Appbar

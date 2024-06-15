@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:chat/model/chat.dart';
-import 'package:chat/theme/color.dart';
-import 'package:chat/theme/theme_controller.dart';
-import 'package:chat/utils/screen_utils.dart';
-import 'package:chat/widget/avatar.dart';
-import 'package:chat/widget/unread_message.dart';
+import 'package:ninja_chat/model/chat.dart';
+import 'package:ninja_chat/theme/color.dart';
+import 'package:ninja_chat/theme/theme_controller.dart';
+import 'package:ninja_chat/utils/screen_utils.dart';
+import 'package:ninja_chat/widget/avatar.dart';
+import 'package:ninja_chat/widget/unread_message.dart';
 
 class ChatsItem extends StatelessWidget {
   final Chat chat;
