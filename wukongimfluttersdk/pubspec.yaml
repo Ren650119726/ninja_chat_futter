@@ -15,7 +15,7 @@ description: wukong IM flutter sdk
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.4.1
+version: 1.4.4
 homepage: https://github.com/WuKongIM/WuKongIMFlutterSDK
 
 environment:
@@ -41,7 +41,7 @@ dependencies:
   encryptions: ^1.1.0+1
   hex: ^0.2.0
   crypto: ^3.0.3
-  uuid: ^4.3.3
+  uuid: ^4.2.1
   web_socket_channel: ^2.4.0
   dio: ^5.3.2
   encryptor: ^0.0.1
@@ -73,123 +73,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - example/
-    - example/ios/
-    - example/ios/Runner/
-    - example/ios/Runner/Base.lproj/
-    - example/ios/Runner/Assets.xcassets/
-    - example/ios/Runner/Assets.xcassets/AppIcon.appiconset/
-    - example/ios/Runner/Assets.xcassets/LaunchImage.imageset/
-    - example/ios/Flutter/
-    - example/ios/RunnerTests/
-    - example/ios/Runner.xcodeproj/
-    - example/ios/Runner.xcodeproj/xcshareddata/
-    - example/ios/Runner.xcodeproj/xcshareddata/xcschemes/
-    - example/ios/Runner.xcodeproj/project.xcworkspace/
-    - example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/
-    - example/ios/Runner.xcworkspace/
-    - example/ios/Runner.xcworkspace/xcshareddata/
-    - example/lib/
-    - example/web/
-    - example/web/icons/
-    - example/test/
-    - example/linux/
-    - example/linux/flutter/
-    - example/linux/flutter/ephemeral/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/src/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/test/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/lib/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/linux/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/linux/flutter/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/test_driver/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/integration_test/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/lib/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/test/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/lib/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/linux/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/linux/flutter/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/test_driver/
-    - example/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/integration_test/
-    - example/macos/
-    - example/macos/Runner/
-    - example/macos/Runner/Configs/
-    - example/macos/Runner/Base.lproj/
-    - example/macos/Runner/Assets.xcassets/
-    - example/macos/Runner/Assets.xcassets/AppIcon.appiconset/
-    - example/macos/Flutter/
-    - example/macos/Flutter/ephemeral/
-    - example/macos/RunnerTests/
-    - example/macos/Runner.xcodeproj/
-    - example/macos/Runner.xcodeproj/xcshareddata/
-    - example/macos/Runner.xcodeproj/xcshareddata/xcschemes/
-    - example/macos/Runner.xcodeproj/project.xcworkspace/
-    - example/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/
-    - example/macos/Runner.xcworkspace/
-    - example/macos/Runner.xcworkspace/xcshareddata/
-    - example/assets/
-    - example/android/
-    - example/android/app/
-    - example/android/app/src/
-    - example/android/app/src/main/
-    - example/android/app/src/main/res/
-    - example/android/app/src/main/res/values/
-    - example/android/app/src/main/res/drawable/
-    - example/android/app/src/main/res/mipmap-hdpi/
-    - example/android/app/src/main/res/mipmap-mdpi/
-    - example/android/app/src/main/res/drawable-v21/
-    - example/android/app/src/main/res/mipmap-xhdpi/
-    - example/android/app/src/main/res/values-night/
-    - example/android/app/src/main/res/mipmap-xxhdpi/
-    - example/android/app/src/main/res/mipmap-xxxhdpi/
-    - example/android/app/src/main/java/
-    - example/android/app/src/main/java/io/
-    - example/android/app/src/main/java/io/flutter/
-    - example/android/app/src/main/java/io/flutter/plugins/
-    - example/android/app/src/main/kotlin/
-    - example/android/app/src/main/kotlin/com/
-    - example/android/app/src/main/kotlin/com/example/
-    - example/android/app/src/main/kotlin/com/example/example/
-    - example/android/app/src/debug/
-    - example/android/app/src/profile/
-    - example/android/gradle/
-    - example/android/gradle/wrapper/
-    - example/windows/
-    - example/windows/runner/
-    - example/windows/runner/resources/
-    - example/windows/flutter/
-    - example/windows/flutter/ephemeral/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/lib/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/lib/src/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/test/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/lib/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/windows/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/windows/runner/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/windows/runner/resources/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/windows/flutter/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/test_driver/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/integration_test/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/lib/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/test/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/lib/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/windows/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/windows/runner/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/windows/runner/resources/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/windows/flutter/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/test_driver/
-    - example/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/integration_test/
-    - example/.dart_tool/
-    - example/.dart_tool/dartpad/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

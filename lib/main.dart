@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 import 'package:ninja_chat/page/chats/chats_page.dart';
 import 'package:ninja_chat/page/frame/frame_page.dart';
 import 'package:ninja_chat/page/login/login_page.dart';
+import 'package:ninja_chat/stream_chat/stream_chat_app.dart';
 import 'package:ninja_chat/theme/theme_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(const StreamChatSampleApp());
 }
 
 
@@ -151,7 +153,7 @@ class MyApp extends StatelessWidget {
           builder: EasyLoading.init(
             builder: (context, child) => MediaQuery(
               data: MediaQuery.of(context).copyWith(
-                textScaler: const TextScaler.linear(1.0),
+                textScaleFactor: 1.0,
               ),
               child: child!,
             ),

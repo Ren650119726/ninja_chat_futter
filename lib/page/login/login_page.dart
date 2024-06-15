@@ -118,7 +118,8 @@ class LoginPage extends GetView<LoginController> {
                 ),
               ),
             ),
-            const Spacer(),
+            // const Spacer(),
+            10.verticalSpace,
             ElevatedButton(
               child: const Text("下一步"),
               onPressed: () async {
@@ -153,7 +154,7 @@ class LoginPage extends GetView<LoginController> {
                   UserInfo.uid = uidStr;
                   IMUtils.initIM(uidStr, tokenStr).then((result) {
                     if (result) {
-                      Get.to(()=> const HomePage());
+                      Get.to(()=> const ConversationPage());
                     }
                   });
                 }
