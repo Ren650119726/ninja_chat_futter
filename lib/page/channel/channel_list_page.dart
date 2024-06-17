@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
@@ -76,6 +75,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
     return Scaffold(
       backgroundColor: StreamChatTheme.of(context).colorTheme.appBg,
       appBar: StreamChannelListHeader(
+        centerTitle: true,
         onNewChatButtonTap: () {
           GoRouter.of(context).pushNamed(Routes.NEW_CHAT.name);
         },

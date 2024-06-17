@@ -1,0 +1,41 @@
+name: stream_chat_localizations
+description: The Official localizations for Stream Chat Flutter, a service for building chat applications
+version: 7.2.1
+homepage: https://github.com/GetStream/stream-chat-flutter
+repository: https://github.com/GetStream/stream-chat-flutter
+issue_tracker: https://github.com/GetStream/stream-chat-flutter/issues
+
+environment:
+  sdk: '>=3.1.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  stream_chat_flutter: ^7.2.0
+  intl: any
+  intl_translation: ^0.20.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true
+  plugin:
+    platforms:
+      android:
+        default_package: stream_chat_localizations
+      ios:
+        default_package: stream_chat_localizations
+      windows:
+        default_package: stream_chat_localizations
+      linux:
+        default_package: stream_chat_localizations
+      macos:
+        default_package: stream_chat_localizations
+      web:
+        default_package: stream_chat_localizations
+flutter_intl:
+  enabled: true

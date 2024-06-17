@@ -55,6 +55,9 @@ dependencies:
   provider: ^6.1.2
   firebase_core: ^3.1.0
   firebase_messaging: ^15.0.1
+  stream_chat_localizations:
+    path: stream_chat_localizations-7.2.1
+  intl_translation: ^0.20.0
 
 
 dev_dependencies:
@@ -117,3 +120,5 @@ flutter:
     - images/widget/
     - images/img/
     - assets/
+flutter_intl:
+  enabled: true

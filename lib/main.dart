@@ -10,11 +10,13 @@ import 'package:ninja_chat/page/frame/frame_page.dart';
 import 'package:ninja_chat/page/login/login_page.dart';
 import 'package:ninja_chat/stream_chat/stream_chat_app.dart';
 import 'package:ninja_chat/theme/theme_controller.dart';
+import 'package:ninja_chat/utils/stream_chat_localizations_zh.dart';
+import 'package:stream_chat_localizations/stream_chat_localizations.dart';
 
 Future<void> main() async{
-  // runApp(const MyApp());
+  runApp(const MyApp());
   // Wait for Sentry and Firebase to initialize before running the app.
-  runApp(const StreamChatSampleApp());
+  // runApp(const StreamChatSampleApp());
 }
 
 
@@ -28,7 +30,42 @@ class MyApp extends StatelessWidget {
       splitScreenMode: false,
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
+          supportedLocales: const [
+            Locale('en'),
+            Locale('hi'),
+            Locale('fr'),
+            Locale('it'),
+            Locale('es'),
+            Locale('ja'),
+            Locale('ko'),
+            Locale('pt'),
+            Locale('de'),
+            Locale('no'),
+            Locale('zh')
+          ],
           title: 'Almaren',
+          localeListResolutionCallback: (locales, supportedLocales) {
+            // We map the supported locales to language codes
+            // note that this is completely optional and this logic can be changed as you like
+            final supportedLanguageCodes =
+            supportedLocales.map((e) => e.languageCode);
+            if (locales != null) {
+              // we iterate over the locales and find the first one that is supported
+              for (final locale in locales) {
+                if (supportedLanguageCodes.contains(locale.languageCode)) {
+                  return locale;
+                }
+              }
+            }
+
+            // if we didn't find a supported language, we return the Italian language
+            return const Locale('zh');
+          },
+          // Add GlobalStreamChatLocalizations.delegates
+          localizationsDelegates: const [
+            StreamChatLocalizationsZh.delegate,
+            ...GlobalStreamChatLocalizations.delegates,
+          ],
           theme: ThemeData(
             fontFamily: Platform.isWindows ? "MiSans" : "Poppins",
             scaffoldBackgroundColor: Colors.white,
@@ -149,7 +186,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: const LoginPage(),
+          home: const StreamChatSampleApp(),
           defaultTransition: Transition.rightToLeft,
           builder: EasyLoading.init(
             builder: (context, child) => MediaQuery(
