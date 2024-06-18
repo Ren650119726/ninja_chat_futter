@@ -15,6 +15,8 @@ import 'package:ninja_chat/utils/localizations.dart';
 import 'package:ninja_chat/utils/stream_chat_localizations_zh.dart';
 import 'package:stream_chat_localizations/stream_chat_localizations.dart';
 
+
+
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // runApp(const MyApp());
