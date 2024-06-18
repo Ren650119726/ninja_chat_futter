@@ -115,53 +115,52 @@ class StreamChatLocalizationsZh extends GlobalStreamChatLocalizations {
   @override
   String get markUnreadError =>
       '标记消息未读时出错。无法标记最新100条频道消息之外的消息为未读。';
+  @override
+  String get launchUrlError => '自定义错误';
 
   @override
-  String get launchUrlError => 'Custom error';
+  String get loadingUsersError => '加载用户出错';
 
   @override
-  String get loadingUsersError => 'Error loading users';
+  String get noUsersLabel => '当前没有用户';
 
   @override
-  String get noUsersLabel => 'There are no users currently';
+  String get noPhotoOrVideoLabel => '没有照片或视频';
 
   @override
-  String get noPhotoOrVideoLabel => 'There is no photo or video';
+  String get retryLabel => '重试';
 
   @override
-  String get retryLabel => 'Retry';
+  String get userLastOnlineText => '上次在线';
 
   @override
-  String get userLastOnlineText => 'Last online';
-
-  @override
-  String get userOnlineText => 'Online';
+  String get userOnlineText => '在线';
 
   @override
   String userTypingText(Iterable<User> users) {
     if (users.isEmpty) return '';
     final first = users.first;
     if (users.length == 1) {
-      return '${first.name} is typing';
+      return '${first.name} 正在输入';
     }
-    return '${first.name} and ${users.length - 1} more are typing';
+    return '${first.name} 和其他 ${users.length - 1} 人正在输入';
   }
 
   @override
-  String get threadReplyLabel => 'Thread Reply';
+  String get threadReplyLabel => '回复线程';
 
   @override
-  String get onlyVisibleToYouText => 'Only visible to you';
+  String get onlyVisibleToYouText => '仅你可见';
 
   @override
-  String threadReplyCountText(int count) => '$count Thread Replies';
+  String threadReplyCountText(int count) => '$count 条回复';
 
   @override
   String attachmentsUploadProgressText({
     required int remaining,
     required int total,
   }) =>
-      'Uploading $remaining/$total ...';
+      '正在上传 $remaining/$total ...';
 
   @override
   String pinnedByUserText({
@@ -169,79 +168,79 @@ class StreamChatLocalizationsZh extends GlobalStreamChatLocalizations {
     required User currentUser,
   }) {
     final pinnedByCurrentUser = currentUser.id == pinnedBy.id;
-    if (pinnedByCurrentUser) return 'Pinned by You';
-    return 'Pinned by ${pinnedBy.name}';
+    if (pinnedByCurrentUser) return '你置顶了';
+    return '${pinnedBy.name} 置顶了';
   }
 
   @override
   String get sendMessagePermissionError =>
-      "You don't have permission to send messages";
+      '您没有发送消息的权限';
 
   @override
-  String get emptyMessagesText => 'There are no messages currently';
+  String get emptyMessagesText => '当前没有消息';
 
   @override
-  String get genericErrorText => 'Something went wrong';
+  String get genericErrorText => '出了点问题';
 
   @override
-  String get loadingMessagesError => 'Error loading messages';
+  String get loadingMessagesError => '加载消息出错';
 
   @override
-  String resultCountText(int count) => '$count results';
+  String resultCountText(int count) => '$count 条结果';
 
   @override
-  String get messageDeletedText => 'This message is deleted.';
+  String get messageDeletedText => '此消息已删除。';
 
   @override
-  String get messageDeletedLabel => 'Message deleted';
+  String get messageDeletedLabel => '消息已删除';
 
   @override
-  String get messageReactionsLabel => 'Message Reactions';
+  String get messageReactionsLabel => '消息反应';
 
   @override
-  String get emptyChatMessagesText => 'No chats here yet...';
+  String get emptyChatMessagesText => '暂无聊天...';
 
   @override
   String threadSeparatorText(int replyCount) {
-    if (replyCount == 1) return '1 Reply';
-    return '$replyCount Replies';
+    if (replyCount == 1) return '1 条回复';
+    return '$replyCount 条回复';
   }
 
   @override
   String get connectedLabel => '已连接';
 
   @override
-  String get disconnectedLabel => 'Disconnected';
+  String get disconnectedLabel => '未连接';
 
   @override
-  String get reconnectingLabel => '连接中...';
+  String get reconnectingLabel => '重新连接中...';
 
   @override
-  String get alsoSendAsDirectMessageLabel => 'Also send as direct message';
+  String get alsoSendAsDirectMessageLabel => '同时发送为直接消息';
 
   @override
-  String get addACommentOrSendLabel => 'Add a comment or send';
+  String get addACommentOrSendLabel => '添加评论或发送';
 
   @override
   String toggleDeleteRetryDeleteMessageText({required bool isDeleteFailed}) {
-    if (isDeleteFailed) return 'Retry Deleting Message';
-    return 'Delete Message';
+    if (isDeleteFailed) return '重试删除消息';
+    return '删除消息';
   }
 
   @override
-  String get copyMessageLabel => 'Copy Message';
+  String get copyMessageLabel => '复制消息';
 
   @override
-  String get editMessageLabel => 'Edit Message';
+  String get editMessageLabel => '编辑消息';
 
   @override
   String toggleResendOrResendEditedMessage({required bool isUpdateFailed}) {
-    if (isUpdateFailed) return 'Resend Edited Message';
-    return 'Resend';
+    if (isUpdateFailed) return '重新发送编辑后的消息';
+    return '重新发送';
   }
 
   @override
-  String get photosLabel => 'Photos';
+  String get photosLabel => '照片';
 
   String _getDay(DateTime dateTime) {
     final now = DateTime.now();
@@ -251,216 +250,217 @@ class StreamChatLocalizationsZh extends GlobalStreamChatLocalizations {
     final date = DateTime(dateTime.year, dateTime.month, dateTime.day);
 
     if (date == today) {
-      return 'today';
+      return '今天';
     } else if (date == yesterday) {
-      return 'yesterday';
+      return '昨天';
     } else {
-      return 'on ${Jiffy.parseFromDateTime(date).MMMd}';
+      return '${Jiffy.parseFromDateTime(date).MMMd} 发送';
     }
   }
 
   @override
   String sentAtText({required DateTime date, required DateTime time}) {
     final atTime = Jiffy.parseFromDateTime(time.toLocal());
-    return 'Sent ${_getDay(date)} at ${atTime.jm}';
+    return '${_getDay(date)} ${atTime.jm} 发送';
   }
 
   @override
-  String get todayLabel => 'Today';
+  String get todayLabel => '今天';
 
   @override
-  String get yesterdayLabel => 'Yesterday';
+  String get yesterdayLabel => '昨天';
 
   @override
-  String get channelIsMutedText => 'Channel is muted';
+  String get channelIsMutedText => '频道已静音';
 
   @override
-  String get noTitleText => 'No title';
+  String get noTitleText => '无标题';
 
   @override
-  String get letsStartChattingLabel => 'Let’s start chatting!';
+  String get letsStartChattingLabel => '让我们开始聊天吧！';
 
   @override
   String get sendingFirstMessageLabel =>
-      'How about sending your first message to a friend?';
+      '发送你的第一条消息给一个朋友吧！';
 
   @override
-  String get startAChatLabel => 'Start a chat';
+  String get startAChatLabel => '开始聊天';
 
   @override
-  String get loadingChannelsError => 'Error loading channels';
+  String get loadingChannelsError => '加载频道出错';
 
   @override
-  String get deleteConversationLabel => 'Delete Conversation';
+  String get deleteConversationLabel => '删除对话';
 
   @override
   String get deleteConversationQuestion =>
-      'Are you sure you want to delete this conversation?';
+      '确定要删除此对话吗？';
 
   @override
   String get streamChatLabel => '聊天';
 
   @override
-  String get searchingForNetworkText => 'Searching for Network';
+  String get searchingForNetworkText => '正在搜索网络';
 
   @override
-  String get offlineLabel => 'Offline...';
+  String get offlineLabel => '离线...';
 
   @override
-  String get tryAgainLabel => 'Try Again';
+  String get tryAgainLabel => '重试';
 
   @override
   String membersCountText(int count) {
-    if (count == 1) return '1 Member';
-    return '$count Members';
+    if (count == 1) return '1 位成员';
+    return '$count 位成员';
   }
 
   @override
   String watchersCountText(int count) {
-    if (count == 1) return '1 Online';
-    return '$count Online';
+    if (count == 1) return '1 位在线';
+    return '$count 位在线';
   }
 
   @override
-  String get viewInfoLabel => 'View Info';
+  String get viewInfoLabel => '查看信息';
 
   @override
-  String get leaveGroupLabel => 'Leave Group';
+  String get leaveGroupLabel => '退出群组';
 
   @override
-  String get leaveLabel => 'LEAVE';
+  String get leaveLabel => '退出';
 
   @override
-  String get leaveConversationLabel => 'Leave conversation';
+  String get leaveConversationLabel => '离开对话';
 
   @override
   String get leaveConversationQuestion =>
-      'Are you sure you want to leave this conversation?';
+      '确定要离开此对话吗？';
 
   @override
-  String get showInChatLabel => 'Show in Chat';
+  String get showInChatLabel => '在聊天中显示';
 
   @override
-  String get saveImageLabel => 'Save Image';
+  String get saveImageLabel => '保存图片';
 
   @override
-  String get saveVideoLabel => 'Save Video';
+  String get saveVideoLabel => '保存视频';
 
   @override
-  String get uploadErrorLabel => 'UPLOAD ERROR';
+  String get uploadErrorLabel => '上传错误';
 
   @override
   String get giphyLabel => 'Giphy';
 
   @override
-  String get shuffleLabel => 'Shuffle';
+  String get shuffleLabel => '洗牌';
 
   @override
-  String get sendLabel => 'Send';
+  String get sendLabel => '发送';
 
   @override
-  String get withText => 'with';
+  String get withText => '和';
 
   @override
-  String get inText => 'in';
+  String get inText => '在';
 
   @override
-  String get youText => 'You';
+  String get youText => '你';
 
   @override
   String galleryPaginationText({
     required int currentPage,
     required int totalPages,
   }) =>
-      '$currentPage of $totalPages';
+      '$currentPage / $totalPages';
 
   @override
-  String get fileText => 'File';
+  String get fileText => '文件';
 
   @override
-  String get replyToMessageLabel => 'Reply to Message';
+  String get replyToMessageLabel => '回复消息';
 
   @override
   String attachmentLimitExceedError(int limit) =>
-      'Attachment limit exceeded, limit: $limit';
+      '附件超过限制，限制：$limit';
 
   @override
-  String get slowModeOnLabel => 'Slow mode ON';
+  String get slowModeOnLabel => '慢模式开启';
 
   @override
-  String get downloadLabel => 'Download';
+  String get downloadLabel => '下载';
 
   @override
   String toggleMuteUnmuteUserText({required bool isMuted}) {
     if (isMuted) {
-      return 'Unmute User';
+      return '取消静音用户';
     } else {
-      return 'Mute User';
+      return '静音用户';
     }
   }
 
   @override
   String toggleMuteUnmuteGroupQuestion({required bool isMuted}) {
     if (isMuted) {
-      return 'Are you sure you want to unmute this group?';
+      return '确定要取消静音此群组吗？';
     } else {
-      return 'Are you sure you want to mute this group?';
+      return '确定要静音此群组吗？';
     }
   }
 
   @override
   String toggleMuteUnmuteUserQuestion({required bool isMuted}) {
     if (isMuted) {
-      return 'Are you sure you want to unmute this user?';
+      return '确定要取消静音此用户吗？';
     } else {
-      return 'Are you sure you want to mute this user?';
+      return '确定要静音此用户吗？';
     }
   }
 
   @override
   String toggleMuteUnmuteAction({required bool isMuted}) {
     if (isMuted) {
-      return 'UNMUTE';
+      return '取消静音';
     } else {
-      return 'MUTE';
+      return '静音';
     }
   }
 
   @override
   String toggleMuteUnmuteGroupText({required bool isMuted}) {
     if (isMuted) {
-      return 'Unmute Group';
+      return '取消静音群组';
     } else {
-      return 'Mute Group';
+      return '静音群组';
     }
   }
 
   @override
   String get linkDisabledDetails =>
-      'Sending links is not allowed in this conversation.';
+      '此对话中禁止发送链接。';
 
   @override
-  String get linkDisabledError => 'Links are disabled';
+  String get linkDisabledError => '链接已禁用';
 
   @override
-  String get viewLibrary => 'View library';
+  String get viewLibrary => '查看库';
 
   @override
-  String unreadMessagesSeparatorText() => 'New messages';
+  String unreadMessagesSeparatorText() => '新消息';
 
   @override
-  String get enableFileAccessMessage => 'Enable file access to continue';
+  String get enableFileAccessMessage => '继续，请允许文件访问';
 
   @override
-  String get allowFileAccessMessage => 'Allow access to files';
+  String get allowFileAccessMessage => '允许访问文件';
 
   @override
-  String get markAsUnreadLabel => 'Mark as unread';
+  String get markAsUnreadLabel => '标记为未读';
 
   @override
   String unreadCountIndicatorLabel({required int unreadCount}) {
-    return '$unreadCount unread';
+    return '$unreadCount 条未读';
   }
+
 
 }
 
