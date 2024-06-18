@@ -58,6 +58,7 @@ dependencies:
   stream_chat_localizations:
     path: ./stream_chat_localizations-7.2.1
   intl_translation: ^0.20.0
+  rxdart: ^0.27.7
 
 
 dev_dependencies:
