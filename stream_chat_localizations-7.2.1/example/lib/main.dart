@@ -76,23 +76,24 @@ class MyApp extends StatelessWidget {
           Locale('ja'),
           Locale('ko'),
           Locale('pt'),
+          Locale('zh'),
         ],
         localeListResolutionCallback: (locales, supportedLocales) {
           // We map the supported locales to language codes
           // note that this is completely optional and this logic can be changed as you like
-          final supportedLanguageCodes =
-              supportedLocales.map((e) => e.languageCode);
-          if (locales != null) {
-            // we iterate over the locales and find the first one that is supported
-            for (final locale in locales) {
-              if (supportedLanguageCodes.contains(locale.languageCode)) {
-                return locale;
-              }
-            }
-          }
+          // final supportedLanguageCodes =
+          //     supportedLocales.map((e) => e.languageCode);
+          // if (locales != null) {
+          //   // we iterate over the locales and find the first one that is supported
+          //   for (final locale in locales) {
+          //     if (supportedLanguageCodes.contains(locale.languageCode)) {
+          //       return locale;
+          //     }
+          //   }
+          // }
 
           // if we didn't find a supported language, we return the Italian language
-          return const Locale('hi');
+          return const Locale('zh');
         },
         localizationsDelegates: GlobalStreamChatLocalizations.delegates,
         builder: (context, widget) => StreamChat(

@@ -15,6 +15,7 @@ import 'package:ninja_chat/state/init_data.dart';
 import 'package:ninja_chat/utils/localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:stream_chat_localizations/stream_chat_localizations.dart';
 import 'package:stream_chat_persistence/stream_chat_persistence.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
@@ -102,9 +103,19 @@ class _StreamChatSampleAppState extends State<StreamChatSampleApp>
                     }[snapshot],
                     supportedLocales: const [
                       Locale('en'),
+                      Locale('hi'),
+                      Locale('fr'),
                       Locale('it'),
+                      Locale('es'),
+                      Locale('ja'),
+                      Locale('ko'),
+                      Locale('pt'),
+                      Locale('de'),
+                      Locale('no'),
+                      Locale('zh')
                     ],
                     localizationsDelegates: const [
+                      ...GlobalStreamChatLocalizations.delegates,
                       AppLocalizationsDelegate(),
                     ],
                     builder: (context, child) => StreamChat(

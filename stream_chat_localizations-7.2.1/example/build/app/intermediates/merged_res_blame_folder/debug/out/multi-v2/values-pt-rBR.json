@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.example.app-mergeDebugResources-28:/values-pt-rBR/values-pt-rBR.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-3\\d445055b0dfdcdeb23dd513ce68f3dc1\\transformed\\browser-1.5.0\\res\\values-pt-rBR\\values-pt-rBR.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,170,269,381",
+                        "endColumns": "114,98,111,105",
+                        "endOffsets": "165,264,376,482"
+                    },
+                    "to": {
+                        "startLines": "9,11,12,13",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "790,1011,1110,1222",
+                        "endColumns": "114,98,111,105",
+                        "endOffsets": "900,1105,1217,1323"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-3\\8ab6588bb4b028278cf9f95ce69f680f\\transformed\\core-1.12.0\\res\\values-pt-rBR\\values-pt-rBR.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,152,254,353,453,560,670,790",
+                        "endColumns": "96,101,98,99,106,109,119,100",
+                        "endOffsets": "147,249,348,448,555,665,785,886"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,18",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,152,254,353,453,560,670,1787",
+                        "endColumns": "96,101,98,99,106,109,119,100",
+                        "endOffsets": "147,249,348,448,555,665,785,1883"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-3\\66c37161ebf8b2e1e55fa761cc27cade\\transformed\\jetified-media2-session-1.2.1\\res\\values-pt-rBR\\values-pt-rBR.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,161,259,356,485",
+                        "endColumns": "105,97,96,128,134",
+                        "endOffsets": "156,254,351,480,615"
+                    },
+                    "to": {
+                        "startLines": "10,14,15,16,17",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "905,1328,1426,1523,1652",
+                        "endColumns": "105,97,96,128,134",
+                        "endOffsets": "1006,1421,1518,1647,1782"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -4,8 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-import 'stream_chat_localizations_zh.dart';
-
 part 'stream_chat_localizations_ca.dart';
 
 part 'stream_chat_localizations_de.dart';
@@ -27,6 +25,8 @@ part 'stream_chat_localizations_ko.dart';
 part 'stream_chat_localizations_pt.dart';
 
 part 'stream_chat_localizations_no.dart';
+
+part 'stream_chat_localizations_zh.dart';
 
 /// The set of supported languages, as language code strings.
 ///

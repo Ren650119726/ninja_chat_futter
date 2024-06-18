@@ -1,7 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
-import 'package:stream_chat_localizations/stream_chat_localizations.dart';
+part of 'stream_chat_localizations.dart';
 
 
 /// A custom set of localizations for the 'nn' locale. In this example, only
