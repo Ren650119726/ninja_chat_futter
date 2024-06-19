@@ -1,7 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:ninja_chat/ui/widget/channel/stream_channel_avatar.dart';
+import 'package:ninja_chat/ui/widget/channel/stream_channel_name.dart';
 import 'package:stream_chat_flutter/src/message_widget/sending_indicator_builder.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart'
+    show Message, StreamChannelPreviewTheme, StreamChatTheme;
+
+import '../../models/channel.dart';
+import '../../models/user.dart';
 
 /// A widget that displays a channel preview.
 ///
@@ -14,7 +20,7 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 /// See also:
 /// * [StreamChannelAvatar]
 /// * [StreamChannelName]
-class StreamChannelListTile<T> extends StatelessWidget {
+class StreamChannelListTile<T extends Channel> extends StatelessWidget {
   /// Creates a new instance of [StreamChannelListTile] widget.
   StreamChannelListTile({
     super.key,
@@ -32,13 +38,12 @@ class StreamChannelListTile<T> extends StatelessWidget {
     this.sendingIndicatorBuilder,
     this.selected = false,
     this.selectedTileColor,
-  }) : assert(
-          channel.state != null,
-          'Channel ${channel.id} is not initialized',
-        );
+    this.currentUser,
+  });
 
-  /// The channel to display.
   final T channel;
+
+  final User? currentUser;
 
   /// A widget to display before the title.
   final Widget? leading;
@@ -104,7 +109,7 @@ class StreamChannelListTile<T> extends StatelessWidget {
   /// the new values.
   StreamChannelListTile copyWith({
     Key? key,
-    Channel? channel,
+    T? channel,
     Widget? leading,
     Widget? title,
     Widget? subtitle,
@@ -142,21 +147,16 @@ class StreamChannelListTile<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final channelState = channel.state!;
-    // final currentUser = channel.client.state.currentUser!;
-
     final channelPreviewTheme = StreamChannelPreviewTheme.of(context);
     final streamChatTheme = StreamChatTheme.of(context);
-    final streamChat = StreamChat.of(context);
 
-    final leading = this.leading ??
-        StreamChannelAvatar(
-          channel: channel,
-        );
+    final leading =
+        this.leading ?? StreamChannelAvatar(channelImage: channel.image!);
 
     final title = this.title ??
         StreamChannelName(
-          channel: channel,
+          members: channel.members!,
+          currentUser: currentUser,
           textStyle: channelPreviewTheme.titleStyle,
         );
 
@@ -313,10 +313,7 @@ class ChannelListTileSubtitle extends StatelessWidget {
     super.key,
     required this.channel,
     this.textStyle,
-  }) : assert(
-          channel.state != null,
-          'Channel ${channel.id} is not initialized',
-        );
+  });
 
   /// The channel to create the subtitle from.
   final Channel channel;
