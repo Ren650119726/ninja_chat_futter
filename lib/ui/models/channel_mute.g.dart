@@ -8,7 +8,7 @@ part of 'channel_mute.dart';
 
 ChannelMute _$ChannelMuteFromJson(Map<String, dynamic> json) => ChannelMute(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
-      channelId: json['channel_id'] as String,
+      channel: ChannelModel.fromJson(json['channel'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       expires: json['expires'] == null

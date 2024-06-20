@@ -1,11 +1,14 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:ninja_chat/ui/models/member.dart';
+import 'package:ninja_chat/ui/rx/better_stream_builder.dart';
 import 'package:ninja_chat/ui/widget/channel/stream_channel_avatar.dart';
 import 'package:ninja_chat/ui/widget/channel/stream_channel_name.dart';
 import 'package:stream_chat_flutter/src/message_widget/sending_indicator_builder.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart'
     show Message, StreamChannelPreviewTheme, StreamChatTheme;
 
+import '../../indicators/unread_indicator.dart';
 import '../../models/channel.dart';
 import '../../models/user.dart';
 

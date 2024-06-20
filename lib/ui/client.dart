@@ -70,8 +70,7 @@ class Client {
 
   final ClientState state = ClientState();
 
-/*
-  /// Returns true if the channel is muted.
+ /* /// Returns true if the channel is muted.
   bool get isMuted =>
       state.currentUser?.channelMutes
           .any((element) => element.channel.cid == cid) ==

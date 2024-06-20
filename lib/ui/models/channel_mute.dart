@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:ninja_chat/ui/models/channel_model.dart';
 
 import 'user.dart';
 
@@ -11,7 +12,7 @@ class ChannelMute {
   /// Constructor used for json serialization
   ChannelMute({
     required this.user,
-    required this.channelId,
+    required this.channel,
     required this.createdAt,
     required this.updatedAt,
     this.expires,
@@ -25,7 +26,7 @@ class ChannelMute {
   final User user;
 
   /// The target channel
-  final String channelId;
+  final ChannelModel channel;
 
   /// The date in which the channel was muted
   final DateTime createdAt;
