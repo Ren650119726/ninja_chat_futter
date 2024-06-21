@@ -10,40 +10,40 @@ Member _$MemberFromJson(Map<String, dynamic> json) => Member(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
-      inviteAcceptedAt: json['invite_accepted_at'] == null
+      inviteAcceptedAt: json['inviteAcceptedAt'] == null
           ? null
-          : DateTime.parse(json['invite_accepted_at'] as String),
-      inviteRejectedAt: json['invite_rejected_at'] == null
+          : DateTime.parse(json['inviteAcceptedAt'] as String),
+      inviteRejectedAt: json['inviteRejectedAt'] == null
           ? null
-          : DateTime.parse(json['invite_rejected_at'] as String),
+          : DateTime.parse(json['inviteRejectedAt'] as String),
       invited: json['invited'] as bool? ?? false,
-      channelRole: json['channel_role'] as String?,
-      userId: json['user_id'] as String?,
-      isModerator: json['is_moderator'] as bool? ?? false,
-      createdAt: json['created_at'] == null
+      channelRole: json['channelRole'] as String?,
+      userId: json['userId'] as String?,
+      isModerator: json['isModerator'] as bool? ?? false,
+      createdAt: json['createdAt'] == null
           ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
           ? null
-          : DateTime.parse(json['updated_at'] as String),
+          : DateTime.parse(json['updatedAt'] as String),
       banned: json['banned'] as bool? ?? false,
-      banExpires: json['ban_expires'] == null
+      banExpires: json['banExpires'] == null
           ? null
-          : DateTime.parse(json['ban_expires'] as String),
-      shadowBanned: json['shadow_banned'] as bool? ?? false,
+          : DateTime.parse(json['banExpires'] as String),
+      shadowBanned: json['shadowBanned'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$MemberToJson(Member instance) => <String, dynamic>{
-      'user': instance.user?.toJson(),
-      'invite_accepted_at': instance.inviteAcceptedAt?.toIso8601String(),
-      'invite_rejected_at': instance.inviteRejectedAt?.toIso8601String(),
+      'user': instance.user,
+      'inviteAcceptedAt': instance.inviteAcceptedAt?.toIso8601String(),
+      'inviteRejectedAt': instance.inviteRejectedAt?.toIso8601String(),
       'invited': instance.invited,
-      'channel_role': instance.channelRole,
-      'user_id': instance.userId,
-      'is_moderator': instance.isModerator,
+      'channelRole': instance.channelRole,
+      'userId': instance.userId,
+      'isModerator': instance.isModerator,
       'banned': instance.banned,
-      'ban_expires': instance.banExpires?.toIso8601String(),
-      'shadow_banned': instance.shadowBanned,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
+      'banExpires': instance.banExpires?.toIso8601String(),
+      'shadowBanned': instance.shadowBanned,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
     };

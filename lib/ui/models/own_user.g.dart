@@ -15,29 +15,29 @@ OwnUser _$OwnUserFromJson(Map<String, dynamic> json) => OwnUser(
               ?.map((e) => Mute.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      totalUnreadCount: json['total_unread_count'] as int? ?? 0,
-      unreadChannels: json['unread_channels'] as int? ?? 0,
-      channelMutes: (json['channel_mutes'] as List<dynamic>?)
+      totalUnreadCount: (json['totalUnreadCount'] as num?)?.toInt() ?? 0,
+      unreadChannels: (json['unreadChannels'] as num?)?.toInt() ?? 0,
+      channelMutes: (json['channelMutes'] as List<dynamic>?)
               ?.map((e) => ChannelMute.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       id: json['id'] as String,
       role: json['role'] as String?,
-      createdAt: json['created_at'] == null
+      createdAt: json['createdAt'] == null
           ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
           ? null
-          : DateTime.parse(json['updated_at'] as String),
-      lastActive: json['last_active'] == null
+          : DateTime.parse(json['updatedAt'] as String),
+      lastActive: json['lastActive'] == null
           ? null
-          : DateTime.parse(json['last_active'] as String),
+          : DateTime.parse(json['lastActive'] as String),
       online: json['online'] as bool? ?? false,
-      extraData: json['extra_data'] as Map<String, dynamic>? ?? const {},
+      extraData: json['extraData'] as Map<String, dynamic>? ?? const {},
       banned: json['banned'] as bool? ?? false,
-      banExpires: json['ban_expires'] == null
+      banExpires: json['banExpires'] == null
           ? null
-          : DateTime.parse(json['ban_expires'] as String),
+          : DateTime.parse(json['banExpires'] as String),
       teams:
           (json['teams'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],

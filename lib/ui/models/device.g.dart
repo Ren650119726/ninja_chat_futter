@@ -8,10 +8,10 @@ part of 'device.dart';
 
 Device _$DeviceFromJson(Map<String, dynamic> json) => Device(
       id: json['id'] as String,
-      pushProvider: json['push_provider'] as String,
+      pushProvider: json['pushProvider'] as String,
     );
 
 Map<String, dynamic> _$DeviceToJson(Device instance) => <String, dynamic>{
       'id': instance.id,
-      'push_provider': instance.pushProvider,
+      'pushProvider': instance.pushProvider,
     };

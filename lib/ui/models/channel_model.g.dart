@@ -10,32 +10,32 @@ ChannelModel _$ChannelModelFromJson(Map<String, dynamic> json) => ChannelModel(
       id: json['id'] as String?,
       type: json['type'] as String?,
       cid: json['cid'] as String?,
-      ownCapabilities: (json['own_capabilities'] as List<dynamic>?)
+      ownCapabilities: (json['ownCapabilities'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       config: json['config'] == null
           ? null
           : ChannelConfig.fromJson(json['config'] as Map<String, dynamic>),
-      createdBy: json['created_by'] == null
+      createdBy: json['createdBy'] == null
           ? null
-          : User.fromJson(json['created_by'] as Map<String, dynamic>),
+          : User.fromJson(json['createdBy'] as Map<String, dynamic>),
       frozen: json['frozen'] as bool? ?? false,
-      lastMessageAt: json['last_message_at'] == null
+      lastMessageAt: json['lastMessageAt'] == null
           ? null
-          : DateTime.parse(json['last_message_at'] as String),
-      createdAt: json['created_at'] == null
+          : DateTime.parse(json['lastMessageAt'] as String),
+      createdAt: json['createdAt'] == null
           ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
           ? null
-          : DateTime.parse(json['updated_at'] as String),
-      deletedAt: json['deleted_at'] == null
+          : DateTime.parse(json['updatedAt'] as String),
+      deletedAt: json['deletedAt'] == null
           ? null
-          : DateTime.parse(json['deleted_at'] as String),
-      memberCount: json['member_count'] as int? ?? 0,
-      extraData: json['extra_data'] as Map<String, dynamic>? ?? const {},
+          : DateTime.parse(json['deletedAt'] as String),
+      memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
+      extraData: json['extraData'] as Map<String, dynamic>? ?? const {},
       team: json['team'] as String?,
-      cooldown: json['cooldown'] as int? ?? 0,
+      cooldown: (json['cooldown'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$ChannelModelToJson(ChannelModel instance) =>
@@ -44,5 +44,5 @@ Map<String, dynamic> _$ChannelModelToJson(ChannelModel instance) =>
       'type': instance.type,
       'frozen': instance.frozen,
       'cooldown': instance.cooldown,
-      'extra_data': instance.extraData,
+      'extraData': instance.extraData,
     };

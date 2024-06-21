@@ -9,21 +9,21 @@ part of 'user.dart';
 User _$UserFromJson(Map<String, dynamic> json) => User(
       id: json['id'] as String,
       role: json['role'] as String?,
-      createdAt: json['created_at'] == null
+      createdAt: json['createdAt'] == null
           ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
           ? null
-          : DateTime.parse(json['updated_at'] as String),
-      lastActive: json['last_active'] == null
+          : DateTime.parse(json['updatedAt'] as String),
+      lastActive: json['lastActive'] == null
           ? null
-          : DateTime.parse(json['last_active'] as String),
-      extraData: json['extra_data'] as Map<String, dynamic>? ?? const {},
+          : DateTime.parse(json['lastActive'] as String),
+      extraData: json['extraData'] as Map<String, dynamic>? ?? const {},
       online: json['online'] as bool? ?? false,
       banned: json['banned'] as bool? ?? false,
-      banExpires: json['ban_expires'] == null
+      banExpires: json['banExpires'] == null
           ? null
-          : DateTime.parse(json['ban_expires'] as String),
+          : DateTime.parse(json['banExpires'] as String),
       teams:
           (json['teams'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -42,6 +42,6 @@ Map<String, dynamic> _$UserToJson(User instance) {
   }
 
   writeNotNull('language', instance.language);
-  val['extra_data'] = instance.extraData;
+  val['extraData'] = instance.extraData;
   return val;
 }

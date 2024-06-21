@@ -8,6 +8,7 @@ import 'package:stream_chat_flutter/src/message_widget/sending_indicator_builder
 import 'package:stream_chat_flutter/stream_chat_flutter.dart'
     show Message, StreamChannelPreviewTheme, StreamChatTheme;
 
+import '../../entity/conversation.dart';
 import '../../indicators/unread_indicator.dart';
 import '../../models/channel.dart';
 import '../../models/user.dart';
@@ -23,11 +24,11 @@ import '../../models/user.dart';
 /// See also:
 /// * [StreamChannelAvatar]
 /// * [StreamChannelName]
-class StreamChannelListTile<T extends Channel> extends StatelessWidget {
+class StreamChannelListTile extends StatelessWidget {
   /// Creates a new instance of [StreamChannelListTile] widget.
   StreamChannelListTile({
     super.key,
-    required this.channel,
+    required this.conversation,
     this.leading,
     this.title,
     this.subtitle,
@@ -44,7 +45,7 @@ class StreamChannelListTile<T extends Channel> extends StatelessWidget {
     this.currentUser,
   });
 
-  final T channel;
+  final WKUIConversationMsg conversation;
 
   final User? currentUser;
 
@@ -112,7 +113,7 @@ class StreamChannelListTile<T extends Channel> extends StatelessWidget {
   /// the new values.
   StreamChannelListTile copyWith({
     Key? key,
-    T? channel,
+    WKUIConversationMsg? conversation,
     Widget? leading,
     Widget? title,
     Widget? subtitle,
@@ -129,7 +130,7 @@ class StreamChannelListTile<T extends Channel> extends StatelessWidget {
   }) {
     return StreamChannelListTile(
       key: key ?? this.key,
-      channel: channel ?? this.channel,
+      conversation: conversation ?? this.conversation,
       leading: leading ?? this.leading,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
@@ -154,30 +155,30 @@ class StreamChannelListTile<T extends Channel> extends StatelessWidget {
     final streamChatTheme = StreamChatTheme.of(context);
 
     final leading =
-        this.leading ?? StreamChannelAvatar(channelImage: channel.image!);
+        this.leading ?? StreamChannelAvatar(channelImage: conversation.image!);
 
     final title = this.title ??
         StreamChannelName(
-          members: channel.members!,
+          members: conversation.members!,
           currentUser: currentUser,
           textStyle: channelPreviewTheme.titleStyle,
         );
 
     final subtitle = this.subtitle ??
         ChannelListTileSubtitle(
-          channel: channel,
+          channel: conversation,
           textStyle: channelPreviewTheme.subtitleStyle,
         );
 
     final trailing = this.trailing ??
         ChannelLastMessageDate(
-          channel: channel,
+          channel: conversation,
           textStyle: channelPreviewTheme.lastMessageAtStyle,
         );
 
     return BetterStreamBuilder<bool>(
-      stream: channel.isMutedStream,
-      initialData: channel.isMuted,
+      stream: conversation.isMutedStream,
+      initialData: conversation.isMuted,
       builder: (context, isMuted) => AnimatedOpacity(
         opacity: isMuted ? 0.5 : 1,
         duration: const Duration(milliseconds: 300),
