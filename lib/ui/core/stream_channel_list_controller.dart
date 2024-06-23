@@ -19,7 +19,7 @@ const _kDefaultBackendPaginationLimit = 30;
 /// * Replace the previously loaded channels.
 /// * Return/Create a new channel and start watching it.
 /// * Pause and Resume all subscriptions added to this composite.
-class StreamChannelListController extends PagedValueNotifier<int, WKUIConversationMsg> {
+class StreamChannelListController extends PagedValueNotifier<int, Conversation> {
   /// Creates a Stream channel list controller.
   ///
   /// * `client` is the Stream chat client to use for the channels list.
@@ -90,7 +90,7 @@ class StreamChannelListController extends PagedValueNotifier<int, WKUIConversati
   }
 
   /// Replaces the previously loaded channels with the passed [conversations].
-  set conversations(List<WKUIConversationMsg> conversations) {
+  set conversations(List<Conversation> conversations) {
     if (value.isSuccess) {
       final currentValue = value.asSuccess;
       value = currentValue.copyWith(items: conversations);

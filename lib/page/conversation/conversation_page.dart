@@ -31,58 +31,6 @@ class ConversationPage extends GetView<ConversationController> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
-      persistentFooterButtons: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 240, 117, 2),
-          ),
-          onPressed: () {
-            WKIM.shared.conversationManager.clearAllRedDot();
-          },
-          child: const Text(
-            '清除未读',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 240, 2, 133),
-          ),
-          onPressed: () {
-            if (controller.conversationList.isEmpty) {
-              return;
-            }
-          },
-          child: const Text(
-            '提醒项',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
-          onPressed: () {
-            WKIM.shared.connectionManager.disconnect(false);
-          },
-          child: const Text(
-            '断开',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 31, 27, 239),
-          ),
-          onPressed: () {
-            WKIM.shared.connectionManager.connect();
-          },
-          child: const Text(
-            '重连',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ],
     );
   }
 

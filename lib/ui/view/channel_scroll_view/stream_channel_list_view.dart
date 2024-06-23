@@ -5,6 +5,7 @@ import 'package:ninja_chat/ui/utils/extensions.dart';
 import '../../core/stream_channel_list_controller.dart';
 import '../../entity/conversation.dart';
 import '../../misc/stream_svg_icon.dart';
+import '../../models/channel.dart';
 import '../../theme/stream_chat_theme.dart';
 import '../paged/paged_value_scroll_view.dart';
 import '../stream_scroll_view_empty_widget.dart';
@@ -17,15 +18,15 @@ import 'stream_channel_list_tile.dart';
 
 Widget defaultChannelListViewSeparatorBuilder<T>(
     BuildContext context,
-    List<WKUIConversationMsg> items,
+    List<Conversation> items,
     int index,
     ) =>
     const StreamChannelListSeparator();
 
 typedef StreamChannelListViewIndexedWidgetBuilder
-= StreamScrollViewIndexedWidgetBuilder<WKUIConversationMsg, StreamChannelListTile>;
+= StreamScrollViewIndexedWidgetBuilder<Conversation, StreamChannelListTile>;
 
-class StreamChannelListView<T> extends StatelessWidget {
+class StreamChannelListView extends StatelessWidget {
   const StreamChannelListView({
     Key? key,
     this.itemBuilder,
@@ -55,12 +56,12 @@ class StreamChannelListView<T> extends StatelessWidget {
   });
   final StreamChannelListController controller;
   final StreamChannelListViewIndexedWidgetBuilder? itemBuilder;
-  final PagedValueScrollViewIndexedWidgetBuilder<WKUIConversationMsg> separatorBuilder;
+  final PagedValueScrollViewIndexedWidgetBuilder<Conversation> separatorBuilder;
   final WidgetBuilder? emptyBuilder;
   final WidgetBuilder? loadingBuilder;
   final Widget Function(BuildContext, Exception)? errorBuilder;
-  final void Function(T)? onChannelTap;
-  final void Function(T)? onChannelLongPress;
+  final void Function(Conversation)? onChannelTap;
+  final void Function(Conversation)? onChannelLongPress;
   final int loadMoreTriggerIndex;
   final Axis scrollDirection;
   final EdgeInsetsGeometry? padding;
@@ -81,7 +82,7 @@ class StreamChannelListView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PagedValueListView<int, WKUIConversationMsg>(
+    return PagedValueListView<int, Conversation>(
       scrollDirection: scrollDirection,
       padding: padding,
       physics: physics,
@@ -102,14 +103,14 @@ class StreamChannelListView<T> extends StatelessWidget {
       separatorBuilder: separatorBuilder,
       itemBuilder: (context, channels, index) {
         //每条会话
-        final channel = channels[index];
+        final conversation = channels[index];
         final onTap = onChannelTap;
         final onLongPress = onChannelLongPress;
 
         final streamChannelListTile = StreamChannelListTile(
-          channel: channel,
-          onTap: onTap == null ? null : () => onTap(channel),
-          onLongPress: onLongPress == null ? null : () => onLongPress(channel),
+          conversation: conversation,
+          onTap: onTap == null ? null : () => onTap(conversation),
+          onLongPress: onLongPress == null ? null : () => onLongPress(conversation),
         );
 
         return itemBuilder?.call(
