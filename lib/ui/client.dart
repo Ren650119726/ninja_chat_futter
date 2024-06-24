@@ -1,4 +1,7 @@
+import 'package:collection/collection.dart';
+import 'package:ninja_chat/core/wkim.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:wukongimfluttersdk/entity/conversation.dart';
 
 import 'models/own_user.dart';
 
@@ -60,6 +63,7 @@ class ClientState {
 class Client {
   Client({
     required this.uid,
+    required this.wkimUtils,
   }) {
     state.currentUser = OwnUser(
       id: uid,
@@ -68,9 +72,11 @@ class Client {
 
   final String uid;
 
+  final WKIMUtils wkimUtils;
+
   final ClientState state = ClientState();
 
- /* /// Returns true if the channel is muted.
+  /* /// Returns true if the channel is muted.
   bool get isMuted =>
       state.currentUser?.channelMutes
           .any((element) => element.channel.cid == cid) ==
@@ -94,4 +100,10 @@ class Client {
   void setConnectionStatus(ConnectStatus status) {
     _connectionStatusController.add(status);
   }
+
+  Future<List<WKUIConversationMsg>> getConversationList() {
+    return wkimUtils.wKim.conversationManager.getAll();
+  }
+
+
 }

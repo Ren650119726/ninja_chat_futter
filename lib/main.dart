@@ -10,17 +10,18 @@ import 'package:ninja_chat/page/conversation/home.dart';
 import 'package:ninja_chat/page/frame/frame_page.dart';
 import 'package:ninja_chat/page/login/login_page.dart';
 import 'package:ninja_chat/stream_chat/stream_chat_app.dart';
-import 'package:ninja_chat/theme/theme_controller.dart';
 import 'package:ninja_chat/utils/localizations.dart';
 import 'package:ninja_chat/utils/stream_chat_localizations_zh.dart';
 import 'package:stream_chat_localizations/stream_chat_localizations.dart';
 
 import 'overwrite/app.dart';
+import 'overwrite/controller/theme_controller.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // runApp(const MyApp());
   // Wait for Sentry and Firebase to initialize before running the app.
+  Get.put(ThemeController());
   runApp(const ChatApp());
 }
 

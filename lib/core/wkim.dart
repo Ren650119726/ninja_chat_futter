@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:ninja_chat/ui/entity/conversation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wukongimfluttersdk/common/options.dart';
+import 'package:wukongimfluttersdk/entity/conversation.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 import 'http_client.dart';
@@ -33,8 +35,4 @@ class WKIMUtils {
     }
     return result;
   }
-
-
-
-
 }

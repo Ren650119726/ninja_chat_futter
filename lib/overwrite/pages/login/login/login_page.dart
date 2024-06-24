@@ -5,8 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ninja_chat/common/const.dart';
+import 'package:ninja_chat/overwrite/pages/conversation/conversation_page.dart';
 import 'package:ninja_chat/page/chats/chats_page.dart';
-import 'package:ninja_chat/page/conversation/conversation_page.dart';
 import 'package:ninja_chat/page/conversation/home.dart';
 import 'package:ninja_chat/page/login/login_controller.dart';
 import 'package:ninja_chat/utils/http.dart';
@@ -38,12 +38,10 @@ class LoginPage extends GetView<LoginController> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF8F9FA),
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
                 border: Border.all(
-                  color: const Color(0x44EEEEEE),
                 ),
               ),
               child: TextField(
@@ -66,12 +64,10 @@ class LoginPage extends GetView<LoginController> {
             10.verticalSpace,
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF8F9FA),
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
                 border: Border.all(
-                  color: const Color(0x44EEEEEE),
                 ),
               ),
               child: TextField(
@@ -93,12 +89,10 @@ class LoginPage extends GetView<LoginController> {
             10.verticalSpace,
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF8F9FA),
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
                 border: Border.all(
-                  color: const Color(0x44EEEEEE),
                 ),
               ),
               child: TextField(
@@ -153,7 +147,7 @@ class LoginPage extends GetView<LoginController> {
                   UserInfo.uid = uidStr;
                   IMUtils.initIM(uidStr, tokenStr).then((result) {
                     if (result) {
-                      Get.to(()=> const ConversationPage());
+                      Get.off(()=> const ConversationPage());
                     }
                   });
                 }

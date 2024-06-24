@@ -45,7 +45,7 @@ class Channel {
 }
 
 class Conversation {
-  WKUIConversationMsg? wkConversation;
+  WKConversation? wkConversation;
   late Client client;
 
   Conversation({
@@ -66,9 +66,9 @@ class Conversation {
 
   Stream<bool> get isMutedStream => _muteController.stream;
 
-  final _conversationStateController = BehaviorSubject<WKUIConversationMsg>();
+  final _conversationStateController = BehaviorSubject<WKConversation>();
 
-  WKUIConversationMsg get _channelState => _conversationStateController.value;
+  WKConversation get _channelState => _conversationStateController.value;
 
   get channelStateStream => _conversationStateController.stream;
 

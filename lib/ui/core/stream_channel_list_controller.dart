@@ -101,12 +101,12 @@ class StreamChannelListController extends PagedValueNotifier<int, Conversation> 
 
 
   /// Returns/Creates a new Channel and starts watching it.
-  Future<WKUIConversationMsg> getConversation({
+  Future<WKConversation> getConversation({
     required String id,
     required String type,
   }) async {
     //todo
-    return WKUIConversationMsg();
+    return WKConversation();
   }
 
   /// Leaves the [channel] and updates the list.

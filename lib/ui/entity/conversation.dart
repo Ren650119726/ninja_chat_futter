@@ -53,7 +53,7 @@ class WKConversationMsgExtra {
   int draftUpdatedAt = 0;
 }
 
-class WKUIConversationMsg extends Channel{
+class WKConversation extends Channel{
   int lastMsgSeq = 0;
   String clientMsgNo = '';
 
