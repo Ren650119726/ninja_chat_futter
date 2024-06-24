@@ -18,26 +18,64 @@ class ConversationPage extends GetView<ConversationController> {
   Widget build(BuildContext context) {
     Get.put(ConversationController());
     return Scaffold(
-      appBar: AppBar(
-        title: Text("会话"),
-        centerTitle: true,
+        appBar: AppBar(
+          title: Text("会话"),
+          centerTitle: true,
+        ),
+        drawer: LeftDrawer(),
+        body: Obx(() => ListView.builder(
+            shrinkWrap: true,
+            itemCount: controller.conversationList.length,
+            itemBuilder: (context, pos) {
+              return GestureDetector(
+                onTap: () {},
+                child: _buildRow(controller.conversationList[pos]),
+              );
+            })),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: _navBarItems,
+          onTap: (index) {
+            print(index);
+          },
+        ));
+  }
+
+  List<BottomNavigationBarItem> get _navBarItems {
+    return <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            StreamSvgIcon.message(
+              color: Colors.grey,
+            ),
+            const Positioned(
+              top: -3,
+              right: -16,
+              // child: StreamUnreadIndicator(),
+              child: SizedBox(),
+            ),
+          ],
+        ),
+        label: "聊天",
       ),
-      drawer: LeftDrawer(),
-      body: Obx(() => ListView.builder(
-          shrinkWrap: true,
-          itemCount: controller.conversationList.length,
-          itemBuilder: (context, pos) {
-            return GestureDetector(
-              onTap: () {},
-              child: _buildRow(controller.conversationList[pos]),
-            );
-          })),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      BottomNavigationBarItem(
+        icon: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            StreamSvgIcon.mentions(
+              color: Colors.grey,
+            ),
+          ],
+        ),
+        label: "提及",
       ),
-    );
+    ];
   }
 
   Widget _buildRow(Chat uiMsg) {
@@ -74,9 +112,7 @@ class ConversationPage extends GetView<ConversationController> {
                   Row(
                     children: <Widget>[
                       Text(
-                        uiMsg.name ?? '',
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 18),
+                        uiMsg.name!,
                         maxLines: 1,
                       ),
                       Expanded(

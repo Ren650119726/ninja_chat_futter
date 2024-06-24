@@ -19,7 +19,7 @@ class ChatApp extends GetView<ThemeController> {
       splitScreenMode: false,
       builder: (BuildContext context, Widget? child) {
         return Obx(() => GetMaterialApp(
-              title: 'Almaren',
+              title: 'CHAT',
               theme: FlexThemeData.light(
                   colors: const FlexSchemeColor(
                 primary: Color(0xFF00296B),
