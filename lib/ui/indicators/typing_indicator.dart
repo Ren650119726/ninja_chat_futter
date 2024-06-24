@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:ninja_chat/ui/models/channel.dart';
+
+import '../models/user.dart';
+import '../rx/better_stream_builder.dart';
+import '../stream_chat.dart';
 
 /// {@template streamTypingIndicator}
 /// Shows the list of user who are actively typing.
@@ -9,7 +13,7 @@ class StreamTypingIndicator extends StatelessWidget {
   /// {@macro streamTypingIndicator}
   const StreamTypingIndicator({
     super.key,
-    this.channel,
+    this.conversation,
     this.alternativeWidget,
     this.style,
     this.padding = EdgeInsets.zero,
@@ -20,7 +24,7 @@ class StreamTypingIndicator extends StatelessWidget {
   final TextStyle? style;
 
   /// List of typing users
-  final Channel? channel;
+  final Conversation? conversation;
 
   /// The widget to build when no typing is happening
   final Widget? alternativeWidget;
@@ -33,47 +37,29 @@ class StreamTypingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final channelState =
-        channel?.state ?? StreamChannel.of(context).channel.state!;
+
+    // StreamChat.of(context).
 
     final altWidget = alternativeWidget ?? const Offstage();
-
-    return BetterStreamBuilder<Iterable<User>>(
-      initialData: channelState.typingEvents.keys,
-      stream: channelState.typingEventsStream.map((typingEvents) => typingEvents
-          .entries
-          .where((element) => element.value.parentId == parentId)
-          .map((e) => e.key)),
-      builder: (context, users) => AnimatedSwitcher(
-        layoutBuilder: (currentChild, previousChildren) => Stack(
-          children: <Widget>[
-            ...previousChildren,
-            if (currentChild != null) currentChild,
-          ],
-        ),
-        duration: const Duration(milliseconds: 300),
-        child: users.isNotEmpty
-            ? Padding(
-                padding: padding,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Lottie.asset(
-                      'animations/typing_dots.json',
-                      package: 'stream_chat_flutter',
-                      height: 4,
-                    ),
-                    Flexible(
-                      child: Text(
-                        context.translations.userTypingText(users),
-                        maxLines: 1,
-                        style: style,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : altWidget,
+    //todo
+    return Padding(
+      padding: padding,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Lottie.asset(
+            'animations/typing_dots.json',
+            package: 'stream_chat_flutter',
+            height: 4,
+          ),
+          Flexible(
+            child: Text(
+               '',
+              maxLines: 1,
+              style: style,
+            ),
+          ),
+        ],
       ),
     );
   }

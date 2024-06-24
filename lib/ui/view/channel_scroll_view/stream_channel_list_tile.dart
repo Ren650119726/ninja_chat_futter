@@ -1,17 +1,23 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:ninja_chat/ui/models/member.dart';
 import 'package:ninja_chat/ui/rx/better_stream_builder.dart';
+import 'package:ninja_chat/ui/utils/extensions.dart';
 import 'package:ninja_chat/ui/widget/channel/stream_channel_avatar.dart';
 import 'package:ninja_chat/ui/widget/channel/stream_channel_name.dart';
 import 'package:stream_chat_flutter/src/message_widget/sending_indicator_builder.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart'
     show Message, StreamChannelPreviewTheme, StreamChatTheme;
+import 'package:wukongimfluttersdk/entity/msg.dart';
 
 import '../../entity/conversation.dart';
+import '../../indicators/typing_indicator.dart';
 import '../../indicators/unread_indicator.dart';
+import '../../misc/stream_svg_icon.dart';
 import '../../models/channel.dart';
 import '../../models/user.dart';
+import '../../widget/channel/stream_message_preview_text.dart';
 
 /// A widget that displays a channel preview.
 ///
@@ -45,7 +51,7 @@ class StreamChannelListTile extends StatelessWidget {
     this.currentUser,
   });
 
-  final WKUIConversationMsg conversation;
+  final Conversation conversation;
 
   final User? currentUser;
 
@@ -101,7 +107,7 @@ class StreamChannelListTile extends StatelessWidget {
   ///
   /// `Message` is the last message in the channel, Use it to determine the
   /// status using [Message.state].
-  final Widget Function(BuildContext, Message)? sendingIndicatorBuilder;
+  final Widget Function(BuildContext, WKMsg)? sendingIndicatorBuilder;
 
   /// True if the tile is in a selected state.
   final bool selected;
@@ -113,7 +119,7 @@ class StreamChannelListTile extends StatelessWidget {
   /// the new values.
   StreamChannelListTile copyWith({
     Key? key,
-    WKUIConversationMsg? conversation,
+    Conversation? conversation,
     Widget? leading,
     Widget? title,
     Widget? subtitle,
@@ -122,7 +128,7 @@ class StreamChannelListTile extends StatelessWidget {
     VisualDensity? visualDensity,
     EdgeInsetsGeometry? contentPadding,
     bool? selected,
-    Widget Function(BuildContext, Message)? sendingIndicatorBuilder,
+    Widget Function(BuildContext, WKMsg)? sendingIndicatorBuilder,
     Color? tileColor,
     Color? selectedTileColor,
     WidgetBuilder? unreadIndicatorBuilder,
@@ -153,26 +159,27 @@ class StreamChannelListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final channelPreviewTheme = StreamChannelPreviewTheme.of(context);
     final streamChatTheme = StreamChatTheme.of(context);
+    final conv = conversation.wkConversation!;
 
     final leading =
-        this.leading ?? StreamChannelAvatar(channelImage: conversation.image!);
+        this.leading ?? StreamChannelAvatar(channelImage: conv.image!);
 
     final title = this.title ??
         StreamChannelName(
-          members: conversation.members!,
+          members: conv.members!,
           currentUser: currentUser,
           textStyle: channelPreviewTheme.titleStyle,
         );
 
     final subtitle = this.subtitle ??
         ChannelListTileSubtitle(
-          channel: conversation,
+          conversation: conversation,
           textStyle: channelPreviewTheme.subtitleStyle,
         );
 
     final trailing = this.trailing ??
         ChannelLastMessageDate(
-          channel: conversation,
+          conversation: conversation,
           textStyle: channelPreviewTheme.lastMessageAtStyle,
         );
 
@@ -196,15 +203,15 @@ class StreamChannelListTile extends StatelessWidget {
             children: [
               Expanded(child: title),
               BetterStreamBuilder<List<Member>>(
-                stream: channelState.membersStream,
-                initialData: channelState.members,
+                stream: conversation.membersStream,
+                initialData: conversation.members,
                 comparator: const ListEquality().equals,
                 builder: (context, members) {
                   if (members.isEmpty) {
                     return const Offstage();
                   }
                   return unreadIndicatorBuilder?.call(context) ??
-                      StreamUnreadIndicator(cid: channel.cid);
+                      StreamUnreadIndicator(cid: conv.channelID);
                 },
               ),
             ],
@@ -217,35 +224,32 @@ class StreamChannelListTile extends StatelessWidget {
                   child: subtitle,
                 ),
               ),
-              BetterStreamBuilder<List<Message>>(
-                stream: channelState.messagesStream,
-                initialData: channelState.messages,
-                comparator: const ListEquality().equals,
+              BetterStreamBuilder<WKMsg>(
+                stream: conversation.messagesStream,
+                initialData: conversation.messages,
+                comparator: (a, b) => a == b,
                 builder: (context, messages) {
-                  final lastMessage = messages.lastWhereOrNull(
-                    (m) => !m.shadowed && !m.isDeleted,
-                  );
-
-                  if (lastMessage == null ||
-                      (lastMessage.user?.id != currentUser.id)) {
+                  final lastMessage = messages;
+                  if ((lastMessage.fromUID != currentUser?.id)) {
                     return const Offstage();
                   }
-
-                  final hasNonUrlAttachments = lastMessage.attachments
-                      .any((it) => it.type != AttachmentType.urlPreview);
-
+                  //todo 文件消息,以及下面ui控件也待处理
+                  // final hasNonUrlAttachments = lastMessage.attachments
+                  //     .any((it) => it.type != AttachmentType.urlPreview);
                   return Padding(
                     padding: const EdgeInsets.only(right: 4),
-                    child:
-                        sendingIndicatorBuilder?.call(context, lastMessage) ??
-                            SendingIndicatorBuilder(
-                              messageTheme: streamChatTheme.ownMessageTheme,
-                              message: lastMessage,
-                              hasNonUrlAttachments: hasNonUrlAttachments,
-                              streamChat: streamChat,
-                              streamChatTheme: streamChatTheme,
-                              channel: channel,
+                    child:Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                          Text(
+                              '2',
+                            style: TextStyle(
+                              color: streamChatTheme.colorTheme.accentPrimary,
                             ),
+                          ),
+                        const SizedBox(width: 2),
+                      ],
+                    )
                   );
                 },
               ),
@@ -263,23 +267,20 @@ class ChannelLastMessageDate extends StatelessWidget {
   /// Creates a new instance of the [ChannelLastMessageDate] widget.
   ChannelLastMessageDate({
     super.key,
-    required this.channel,
+    required this.conversation,
     this.textStyle,
-  }) : assert(
-          channel.state != null,
-          'Channel ${channel.id} is not initialized',
-        );
+  });
 
   /// The channel to display the last message date for.
-  final Channel channel;
+  final Conversation conversation;
 
   /// The style of the text displayed
   final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) => BetterStreamBuilder<DateTime>(
-        stream: channel.lastMessageAtStream,
-        initialData: channel.lastMessageAt,
+        stream: conversation.lastMessageAtStream,
+        initialData: conversation.lastMessageAt,
         builder: (context, data) {
           final lastMessageAt = data.toLocal();
 
@@ -315,19 +316,19 @@ class ChannelListTileSubtitle extends StatelessWidget {
   /// Creates a new instance of [StreamChannelListTileSubtitle] widget.
   ChannelListTileSubtitle({
     super.key,
-    required this.channel,
+    required this.conversation,
     this.textStyle,
   });
 
   /// The channel to create the subtitle from.
-  final Channel channel;
+  final Conversation conversation;
 
   /// The style of the text displayed
   final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
-    if (channel.isMuted) {
+    if (conversation.isMuted) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
@@ -339,12 +340,19 @@ class ChannelListTileSubtitle extends StatelessWidget {
         ],
       );
     }
-    return StreamTypingIndicator(
-      channel: channel,
-      style: textStyle,
-      alternativeWidget: ChannelLastMessageText(
-        channel: channel,
-        textStyle: textStyle,
+    return Padding(
+      padding: EdgeInsets.zero,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              '正在输入',
+              maxLines: 1,
+              style: textStyle,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -355,15 +363,12 @@ class ChannelLastMessageText extends StatefulWidget {
   /// Creates a new instance of [ChannelLastMessageText] widget.
   ChannelLastMessageText({
     super.key,
-    required this.channel,
+    required this.conversation,
     this.textStyle,
-  }) : assert(
-          channel.state != null,
-          'Channel ${channel.id} is not initialized',
-        );
+  });
 
   /// The channel to display the last message of.
-  final Channel channel;
+  final Conversation conversation;
 
   /// The style of the text displayed
   final TextStyle? textStyle;
@@ -376,24 +381,20 @@ class _ChannelLastMessageTextState extends State<ChannelLastMessageText> {
   Message? _lastMessage;
 
   @override
-  Widget build(BuildContext context) => BetterStreamBuilder<List<Message>>(
-        stream: widget.channel.state!.messagesStream,
-        initialData: widget.channel.state!.messages,
+  Widget build(BuildContext context) => BetterStreamBuilder<WKMsg>(
+        stream: widget.conversation.messagesStream,
+        initialData: widget.conversation.messages,
         builder: (context, messages) {
-          final lastMessage = messages.lastWhereOrNull(
-            (m) => !m.shadowed && !m.isDeleted,
-          );
+          //todo
+          final lastMessage = messages;
 
-          if (widget.channel.state?.isUpToDate == true) {
-            _lastMessage = lastMessage;
-          }
 
           if (_lastMessage == null) return const Offstage();
 
           return StreamMessagePreviewText(
             message: _lastMessage!,
             textStyle: widget.textStyle,
-            language: widget.channel.client.state.currentUser?.language,
+            language: 'en',
           );
         },
       );

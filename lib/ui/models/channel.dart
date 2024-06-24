@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:ninja_chat/ui/models/user.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:wukongimfluttersdk/entity/msg.dart';
 
 import '../client.dart';
 import '../entity/conversation.dart';
@@ -44,31 +45,36 @@ class Channel {
 }
 
 class Conversation {
-  WKUIConversationMsg? conversation;
+  WKUIConversationMsg? wkConversation;
   late Client client;
 
   Conversation({
-    this.conversation,
+    this.wkConversation,
     required this.client,
-  });
-
-  bool get isMuted => conversation?.wkChannel?.mute == 1;
-
-  final _muteController = BehaviorSubject<bool>();
-
-  set muted(bool value) {
-    _muteController.add(value);
+  }) {
+    if (wkConversation != null) {
+      _conversationStateController.add(wkConversation!);
+      if (wkConversation?.wkChannel?.mute == 1) {
+        _muteController.add(true);
+      }
+    }
   }
+
+  bool get isMuted => wkConversation?.wkChannel?.mute == 1;
+
+  final _muteController = BehaviorSubject<bool>.seeded(false);
 
   Stream<bool> get isMutedStream => _muteController.stream;
 
-  final _conversationStateController = BehaviorSubject<Channel>();
+  final _conversationStateController = BehaviorSubject<WKUIConversationMsg>();
 
-  set conversationState(Channel value) {
-    _conversationStateController.add(value);
-  }
+  WKUIConversationMsg get _channelState => _conversationStateController.value;
 
   get channelStateStream => _conversationStateController.stream;
+
+  List<Member> get members => (_channelState.members ?? <Member>[])
+      .map((e) => e.copyWith(user: client.state.currentUser))
+      .toList();
 
   Stream<List<Member>> get membersStream => CombineLatestStream.combine2<
       List<Member?>?, User?, List<Member>>(
@@ -83,4 +89,24 @@ class Conversation {
           [];
     },
   ).distinct(const ListEquality().equals);
+
+
+  /// Channel last message date.
+  DateTime? get lastMessageAt {
+    return DateTime.fromMillisecondsSinceEpoch(wkConversation?.wkMsg?.timestamp ?? 0);
+  }
+
+  /// Channel last message date as a stream.
+  Stream<DateTime?> get lastMessageAtStream {
+    return channelStateStream.map((cs) => DateTime.fromMillisecondsSinceEpoch(cs.wkMsg?.timestamp ?? 0));
+  }
+
+
+  /// Channel message list.
+  WKMsg? get messages => _channelState.wkMsg;
+
+  /// Channel message list as a stream.
+  Stream<WKMsg> get messagesStream => channelStateStream
+      .map((cs) => cs.wkMsg ?? WKMsg())
+      .distinct(const ListEquality().equals);
 }
