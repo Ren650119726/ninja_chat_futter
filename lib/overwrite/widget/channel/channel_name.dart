@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ninja_chat/model/member.dart';
+import 'package:ninja_chat/model/user.dart';
 
-import '../../model/member.dart';
-import '../../model/user.dart';
+
 
 class ChannelName extends StatelessWidget {
   const ChannelName({

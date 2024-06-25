@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../model/member.dart';
-import '../../model/user.dart';
-import '../../ui/avatars/user_avatar.dart';
-import 'avatars/group_avatar.dart';
-import 'avatars/user_avatar.dart';
-import 'avatars/wechat_group_avatar.dart';
+import '../../../model/member.dart';
+import '../../../model/user.dart';
+import '../avatars/group_avatar.dart';
+import '../avatars/user_avatar.dart';
+import '../avatars/wechat_group_avatar.dart';
 
 /// WidgetBuilder for [UserAvatar].
 typedef UserAvatarBuilder = Widget Function(
