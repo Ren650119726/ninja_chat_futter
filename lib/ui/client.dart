@@ -76,18 +76,6 @@ class Client {
 
   final ClientState state = ClientState();
 
-  /* /// Returns true if the channel is muted.
-  bool get isMuted =>
-      state.currentUser?.channelMutes
-          .any((element) => element.channel.cid == cid) ==
-          true;
-
-  /// Returns true if the channel is muted, as a stream.
-  Stream<bool> get isMutedStream => state.currentUserStream
-      .map((event) =>
-  event?.channelMutes.any((element) => element.channel.cid == cid) ==
-      true)
-      .distinct();*/
 
   final _connectionStatusController =
       BehaviorSubject.seeded(ConnectStatus.disconnected);

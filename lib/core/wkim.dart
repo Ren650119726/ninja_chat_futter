@@ -6,9 +6,12 @@ import 'package:wukongimfluttersdk/common/options.dart';
 import 'package:wukongimfluttersdk/entity/conversation.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
+import '../model/user.dart';
 import 'http_client.dart';
 
 const api = "https://api.githubim.com";
+
+var currentUser = User(uid: '1', name: 'user1');
 
 class WKIMUtils {
   late String apiURL;
