@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:ninja_chat/model/member.dart';
 import 'package:ninja_chat/ui/entity/conversation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wukongimfluttersdk/common/options.dart';
+import 'package:wukongimfluttersdk/entity/channel_member.dart';
 import 'package:wukongimfluttersdk/entity/conversation.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
@@ -37,5 +39,15 @@ class WKIMUtils {
       WKIM.shared.connectionManager.connect();
     }
     return result;
+  }
+
+  static Future<String> getMemberName(
+      String channelID, int channelType, String uid) async {
+    var wkChannelMember = await WKIM.shared.channelMemberManager
+        .getMember(channelID, channelType, uid);
+    if (wkChannelMember == null) {
+      return "";
+    }
+    return wkChannelMember.memberName;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:ninja_chat/model/member.dart';
+import 'package:ninja_chat/model/message.dart';
 import 'package:wukongimfluttersdk/entity/channel.dart';
 import 'package:wukongimfluttersdk/entity/conversation.dart';
+import 'package:wukongimfluttersdk/entity/msg.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 class Chat {
@@ -39,6 +41,8 @@ class Chat {
   //群成员，此处群成员不是全部群成员
   List<Member> members = [];
 
+  Message? wkMsg;
+
   static Future<Chat> fromConversation(WKUIConversationMsg conversation) async {
     Chat chat = Chat();
     chat.channelID = conversation.channelID;
@@ -52,6 +56,8 @@ class Chat {
     chat.isMuted = await getIsMuted(conversation);
     chat.members = await getMembers(conversation);
     chat.type = conversation.channelType;
+    chat.wkMsg = await getMessage(conversation);
+    chat.lastMsgTimestamp = conversation.lastMsgTimestamp;
     return chat;
   }
 
@@ -175,8 +181,17 @@ class Chat {
         robot: 0,
         forbiddenExpirTime: 0,
         avatar:
-        'https://q9.itc.cn/q_70/images03/20240423/cd1a8cb841594416a20f21b49c784647.jpeg',
+            'https://q9.itc.cn/q_70/images03/20240423/cd1a8cb841594416a20f21b49c784647.jpeg',
       )
     ]);
+  }
+
+  static Future<Message> getMessage(conversation) async {
+    Message msg = Message();
+    final value = await conversation.getWkMsg(); // 使用await等待异步操作完成
+    if (value != null) {
+      msg = Message.fromWKMsg(value);
+    }
+    return msg;
   }
 }

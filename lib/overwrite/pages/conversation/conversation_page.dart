@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:ninja_chat/common/const.dart';
 import 'package:ninja_chat/core/wkim.dart';
 import 'package:ninja_chat/model/chat.dart';
+import 'package:ninja_chat/model/message.dart';
 import 'package:ninja_chat/model/user.dart';
 import 'package:ninja_chat/overwrite/controller/theme_controller.dart';
 import 'package:ninja_chat/overwrite/pages/conversation/conversation_controller.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_avatar.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_name.dart';
 import 'package:ninja_chat/page/chats/chats_item.dart';
+import 'package:ninja_chat/utils/time_ago.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 import '../../../ui/misc/stream_svg_icon.dart';
+import '../../widget/channel/message_preview_text.dart';
 
 class ConversationPage extends GetView<ConversationController> {
   const ConversationPage({super.key});
@@ -88,27 +92,42 @@ class ConversationPage extends GetView<ConversationController> {
         opacity: uiMsg.isMuted ? 0.5 : 1,
         duration: const Duration(milliseconds: 300),
         child: ListTile(
-            leading: ChannelAvatar(
-                members: uiMsg.members,
-                currentUser: currentUser,
-                channelImage: uiMsg.type == 1 ? uiMsg.portrait! : '',
-                borderRadius: BorderRadius.circular(4.8),
-                constraints:
-                    const BoxConstraints.tightFor(height: 44, width: 44)),
-            title: Row(
-              children: [
-                Expanded(
-                  child: ChannelName(
-                    currentUser: currentUser,
-                    members: uiMsg.members,
-                    channelName: uiMsg.name!,
-                    textStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
-                    textOverflow: TextOverflow.ellipsis,
+          leading: ChannelAvatar(
+              members: uiMsg.members,
+              currentUser: currentUser,
+              channelImage: uiMsg.type == 1 ? uiMsg.portrait! : '',
+              borderRadius: BorderRadius.circular(4.8),
+              constraints:
+                  const BoxConstraints.tightFor(height: 44, width: 44)),
+          title: Row(
+            children: [
+              Expanded(
+                child: ChannelName(
+                  currentUser: currentUser,
+                  members: uiMsg.members,
+                  channelName: uiMsg.name!,
+                  textStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                  textOverflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          subtitle: Row(
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: ChannelLastMessageText(
+                    message: uiMsg.wkMsg!,
+                    textStyle: const TextStyle(fontSize: 14),
                   ),
                 ),
-              ],
-            )));
+              ),
+              ChannelLastMessageDate(lastMsgTimestamp: uiMsg.lastMsgTimestamp!)
+            ],
+          ),
+        ));
   }
 
   Widget _buildRow(Chat uiMsg) {
@@ -231,7 +250,10 @@ class LeftDrawer extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: ListTile(
-                      onTap: () async {},
+                      onTap: () async {
+                        Get.back();
+                        await WKIM.shared.connectionManager.disconnect(true);
+                      },
                       title: Text(
                         '登出',
                         style: const TextStyle(
@@ -255,6 +277,55 @@ class LeftDrawer extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ChannelLastMessageDate extends StatelessWidget {
+  ChannelLastMessageDate({
+    super.key,
+    required this.lastMsgTimestamp,
+    this.textStyle,
+  });
+
+  /// The channel to display the last message date for.
+  final int lastMsgTimestamp;
+
+  /// The style of the text displayed
+  final TextStyle? textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    var stringDate = TimeAgo().getTimeStringForChat(lastMsgTimestamp) ?? "";
+
+    return Text(
+      stringDate,
+      style: textStyle,
+    );
+  }
+}
+
+class ChannelLastMessageText extends StatefulWidget {
+  ChannelLastMessageText({
+    super.key,
+    required this.message,
+    this.textStyle,
+  });
+
+  Message message;
+
+  final TextStyle? textStyle;
+
+  @override
+  State<ChannelLastMessageText> createState() => _ChannelLastMessageTextState();
+}
+
+class _ChannelLastMessageTextState extends State<ChannelLastMessageText> {
+  @override
+  Widget build(BuildContext context) {
+    return MessagePreviewText(
+      message: widget.message,
+      textStyle: widget.textStyle,
     );
   }
 }
