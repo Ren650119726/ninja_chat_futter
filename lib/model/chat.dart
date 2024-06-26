@@ -149,7 +149,7 @@ class Chat {
         inviteUid: "",
         robot: 0,
         forbiddenExpirTime: 0,
-        avatar: 'https://api.multiavatar.com/1.png',
+        avatar: 'https://q6.itc.cn/q_70/images03/20240527/b7a98963946e4162938b868807b5ac21.jpeg',
       ),
       Member(
         uid: "3",

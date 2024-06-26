@@ -14,6 +14,7 @@ import 'package:ninja_chat/overwrite/widget/channel/channel_avatar.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_name.dart';
 import 'package:ninja_chat/page/chats/chats_item.dart';
 import 'package:ninja_chat/utils/time_ago.dart';
+import 'package:ninja_chat/widget/unread_message.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
@@ -88,6 +89,7 @@ class ConversationPage extends GetView<ConversationController> {
   }
 
   Widget _buildItem(Chat uiMsg) {
+    bool isDisturb = false;
     return AnimatedOpacity(
         opacity: uiMsg.isMuted ? 0.5 : 1,
         duration: const Duration(milliseconds: 300),
@@ -96,7 +98,7 @@ class ConversationPage extends GetView<ConversationController> {
               members: uiMsg.members,
               currentUser: currentUser,
               channelImage: uiMsg.type == 1 ? uiMsg.portrait! : '',
-              borderRadius: BorderRadius.circular(4.8),
+              borderRadius: BorderRadius.circular(3.6),
               constraints:
                   const BoxConstraints.tightFor(height: 44, width: 44)),
           title: Row(
@@ -111,6 +113,13 @@ class ConversationPage extends GetView<ConversationController> {
                   textOverflow: TextOverflow.ellipsis,
                 ),
               ),
+              if (uiMsg.unread != 0)
+                UnconstrainedBox(
+                  child: UnreadMessagesBadge(
+                      width: isDisturb ? 10 : 18,
+                      height: isDisturb ? 10 : 18,
+                      unreadCount: isDisturb ? 0 : uiMsg.unread),
+                ),
             ],
           ),
           subtitle: Row(
@@ -131,7 +140,6 @@ class ConversationPage extends GetView<ConversationController> {
   }
 
   Widget _buildRow(Chat uiMsg) {
-    print(controller.conversationList.length);
     return Container(
         margin: const EdgeInsets.all(10),
         child: Row(

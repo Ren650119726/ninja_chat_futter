@@ -2,6 +2,7 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ninja_chat/model/chat.dart';
+import 'package:ninja_chat/model/message.dart';
 import 'package:wukongimfluttersdk/entity/conversation.dart';
 import 'package:wukongimfluttersdk/type/const.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
@@ -39,6 +40,7 @@ class ConversationController extends GetxController
       for (var i = 0; i < result.length; i++) {
         conversationList.add(await Chat.fromConversation(result[i]));
       }
+      update();
     });
   }
 
@@ -66,6 +68,7 @@ class ConversationController extends GetxController
       for (var i = 0; i < conversationList.length; i++) {
         conversationList[i].unread = 0;
       }
+      update();
     });
     WKIM.shared.conversationManager
         .addOnRefreshMsgListListener('chat_conversation', (msgs) async {
@@ -77,7 +80,8 @@ class ConversationController extends GetxController
         bool isAdd = true;
         for (var i = 0; i < conversationList.length; i++) {
           if (conversationList[i].channelID == msg.channelID) {
-            conversationList[i].msg = '';
+            var wkmsg = await Chat.getMessage(msg);
+            conversationList[i].wkMsg = wkmsg;
             isAdd = false;
             break;
           }
@@ -90,6 +94,7 @@ class ConversationController extends GetxController
       if (list.isNotEmpty) {
         conversationList.addAll(list);
       }
+      update();
     });
   }
 }

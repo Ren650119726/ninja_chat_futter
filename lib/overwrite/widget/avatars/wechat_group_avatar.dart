@@ -6,8 +6,8 @@ import '../../../model/user.dart'; // 根据实际路径修改
 class AppDimens {
   static const ChatItemImageDimens = 44.0;
 
-  static const ChatItemGroupIconPaddingDimes = 2.0;
-  static const ChatItemGroupChildIconMarginDimes = 2.0;
+  static const ChatItemGroupIconPaddingDimes = 1.2;
+  static const ChatItemGroupChildIconMarginDimes = 1.2;
 }
 
 var row = 0, column = 0;
@@ -94,6 +94,10 @@ class WeChatGroupAvatar extends StatelessWidget {
     return Container(
       width: AppDimens.ChatItemImageDimens,
       height: AppDimens.ChatItemImageDimens,
+      decoration: BoxDecoration(
+        color: const Color(0xffF5F5F5),
+        borderRadius: borderRadius,
+      ),
       padding: EdgeInsets.only(
         top: AppDimens.ChatItemGroupIconPaddingDimes,
       ),
@@ -108,7 +112,7 @@ class WeChatGroupAvatar extends StatelessWidget {
     return UserAvatar(
       showOnlineStatus: false,
       user: user,
-      borderRadius: borderRadius,
+      borderRadius: BorderRadius.circular(2.4),
       height: width,
       width: width,
     );
