@@ -9,6 +9,7 @@ import 'package:ninja_chat/overwrite/pages/conversation/conversation_page.dart';
 import 'package:ninja_chat/page/chats/chats_page.dart';
 import 'package:ninja_chat/page/conversation/home.dart';
 import 'package:ninja_chat/page/login/login_controller.dart';
+import 'package:ninja_chat/routes/routes.dart';
 import 'package:ninja_chat/utils/http.dart';
 import 'package:ninja_chat/utils/im.dart';
 
@@ -41,8 +42,7 @@ class LoginPage extends GetView<LoginController> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
-                border: Border.all(
-                ),
+                border: Border.all(),
               ),
               child: TextField(
                 controller:
@@ -67,8 +67,7 @@ class LoginPage extends GetView<LoginController> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
-                border: Border.all(
-                ),
+                border: Border.all(),
               ),
               child: TextField(
                 textInputAction: TextInputAction.done,
@@ -92,8 +91,7 @@ class LoginPage extends GetView<LoginController> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(12.r),
                 ),
-                border: Border.all(
-                ),
+                border: Border.all(),
               ),
               child: TextField(
                 textInputAction: TextInputAction.done,
@@ -147,7 +145,7 @@ class LoginPage extends GetView<LoginController> {
                   UserInfo.uid = uidStr;
                   IMUtils.initIM(uidStr, tokenStr).then((result) {
                     if (result) {
-                      Get.off(()=> const ConversationPage());
+                      Get.offNamed(Routes.CONVERSATION_PAGE.name);
                     }
                   });
                 }

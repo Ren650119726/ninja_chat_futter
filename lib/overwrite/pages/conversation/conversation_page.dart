@@ -9,6 +9,7 @@ import 'package:ninja_chat/overwrite/controller/theme_controller.dart';
 import 'package:ninja_chat/overwrite/pages/conversation/conversation_controller.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_avatar.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_name.dart';
+import 'package:ninja_chat/routes/routes.dart';
 import 'package:ninja_chat/utils/time_ago.dart';
 import 'package:ninja_chat/widget/unread_message.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
@@ -144,6 +145,10 @@ class ConversationPage extends GetView<ConversationController> {
               })
             ],
           ),
+          onTap: () {
+            Get.toNamed(
+                '${Routes.CHAT_PAGE.name}/${uiMsg.channelID}/${uiMsg.type}');
+          },
         ));
   }
 }
@@ -164,7 +169,7 @@ class LeftDrawer extends StatelessWidget {
             ),
             child: Column(
               children: [
-                 const Padding(
+                const Padding(
                   padding: EdgeInsets.only(
                     bottom: 20.0,
                     left: 8,
@@ -189,8 +194,8 @@ class LeftDrawer extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).pop();
                         WKIM.shared.connectionManager.disconnect(true);
+                        Get.toNamed(Routes.LOGIN.name);
                       },
                       title: const Text(
                         '登出',

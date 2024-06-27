@@ -22,6 +22,15 @@ abstract class Routes {
       ChannelRouteConfig(name: 'group_info_screen', path: 'group_info_screen');
   static const RouteConfig CHANNEL_LIST_PAGE =
       RouteConfig(name: 'channel_list_page', path: '/channels');
+
+  //  --------------------- NEW ROUTES -----------------------
+  static const RouteConfig LOGIN = RouteConfig(name: '/login', path: '/login');
+  static const RouteConfig HOME = RouteConfig(name: '/home', path: '/home');
+  static const RouteConfig CONVERSATION_PAGE =
+      RouteConfig(name: '/conversation_page', path: '/conversation_page');
+  static const RouteConfig CHAT_PAGE = RouteConfig(
+      name: '/chat_page',
+      path: '/chat_page/:channelID/:channelType');
 }
 
 class RouteConfig {

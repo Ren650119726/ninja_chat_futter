@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:ninja_chat/overwrite/controller/theme_controller.dart';
 import 'package:ninja_chat/overwrite/pages/login/login/login_page.dart';
+import 'package:ninja_chat/routes/getx_routes.dart';
+import 'package:ninja_chat/routes/routes.dart';
 
 class ChatApp extends GetView<ThemeController> {
   const ChatApp({super.key});
@@ -41,7 +43,8 @@ class ChatApp extends GetView<ThemeController> {
                       tertiaryContainer: Color(0xFF535393))),
               themeMode: controller.themeMode.value,
               debugShowCheckedModeBanner: false,
-              home: const LoginPage(),
+              getPages: routers,
+              initialRoute: Routes.LOGIN.name,
               defaultTransition: Transition.rightToLeft,
               builder: EasyLoading.init(
                 builder: (context, child) => MediaQuery(

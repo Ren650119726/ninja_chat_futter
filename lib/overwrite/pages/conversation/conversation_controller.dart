@@ -8,8 +8,7 @@ import 'package:wukongimfluttersdk/type/const.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 class ConversationController extends GetxController
-    with StateMixin, GetSingleTickerProviderStateMixin{
-
+    with StateMixin, GetSingleTickerProviderStateMixin {
   late EasyRefreshController refreshController;
   late ScrollController scrollController;
 
@@ -22,14 +21,12 @@ class ConversationController extends GetxController
   void onInit() {
     super.onInit();
     refreshController = EasyRefreshController();
-    scrollController = ScrollController()
-      ..addListener(() {
-      });
+    scrollController = ScrollController()..addListener(() {});
     _getDataList();
     _initListener();
   }
 
-  Future loadData() async{
+  Future loadData() async {
     // await Future.delayed(const Duration(seconds: 1));
     _getDataList();
   }
@@ -40,10 +37,10 @@ class ConversationController extends GetxController
       for (var i = 0; i < result.length; i++) {
         conversationList.add(await Chat.fromConversation(result[i]));
       }
+      Future.delayed(const Duration(milliseconds: 500), () {});
       update();
     });
   }
-
 
   _initListener() {
     // 监听连接状态事件
