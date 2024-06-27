@@ -15,13 +15,20 @@ class ChatPage extends GetView<ChatController> {
     channelType = int.parse(Get.parameters['channelType']!);
     Get.put(ChatController(channelID: channelID, channelType: channelType));
     return Scaffold(
-      appBar: AppBar(
-        title: Obx(() =>Text(controller.title.value.tr)),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text('chat'.tr),
-      ),
-    );
+        appBar: AppBar(
+          title: Obx(() => Text(controller.title.value.tr)),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Obx(() => Text(controller.title.value.tr)),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
