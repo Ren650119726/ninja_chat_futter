@@ -2,20 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:ninja_chat/common/const.dart';
 import 'package:ninja_chat/core/wkim.dart';
 import 'package:ninja_chat/model/chat.dart';
 import 'package:ninja_chat/model/message.dart';
-import 'package:ninja_chat/model/user.dart';
 import 'package:ninja_chat/overwrite/controller/theme_controller.dart';
 import 'package:ninja_chat/overwrite/pages/conversation/conversation_controller.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_avatar.dart';
 import 'package:ninja_chat/overwrite/widget/channel/channel_name.dart';
-import 'package:ninja_chat/page/chats/chats_item.dart';
 import 'package:ninja_chat/utils/time_ago.dart';
 import 'package:ninja_chat/widget/unread_message.dart';
-import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:wukongimfluttersdk/wkim.dart';
 
 import '../../../ui/misc/stream_svg_icon.dart';
@@ -94,31 +89,39 @@ class ConversationPage extends GetView<ConversationController> {
         opacity: uiMsg.isMuted ? 0.5 : 1,
         duration: const Duration(milliseconds: 300),
         child: ListTile(
-          leading: ChannelAvatar(
-              members: uiMsg.members,
-              currentUser: currentUser,
-              channelImage: uiMsg.type == 1 ? uiMsg.portrait! : '',
-              borderRadius: BorderRadius.circular(3.6),
-              constraints:
-                  const BoxConstraints.tightFor(height: 44, width: 44)),
+          leading: GetBuilder<ConversationController>(builder: (controller) {
+            return ChannelAvatar(
+                members: uiMsg.members,
+                currentUser: currentUser,
+                channelImage: uiMsg.type == 1 ? uiMsg.portrait! : '',
+                borderRadius: BorderRadius.circular(3.6),
+                constraints:
+                    const BoxConstraints.tightFor(height: 44, width: 44));
+          }),
           title: Row(
             children: [
               Expanded(
-                child: ChannelName(
-                  currentUser: currentUser,
-                  members: uiMsg.members,
-                  channelName: uiMsg.name!,
-                  textStyle: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500),
-                  textOverflow: TextOverflow.ellipsis,
-                ),
+                child:
+                    GetBuilder<ConversationController>(builder: (controller) {
+                  return ChannelName(
+                    currentUser: currentUser,
+                    members: uiMsg.members,
+                    channelName: uiMsg.name ?? uiMsg.channelID!,
+                    textStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
+                    textOverflow: TextOverflow.ellipsis,
+                  );
+                }),
               ),
               if (uiMsg.unread != 0)
                 UnconstrainedBox(
-                  child: UnreadMessagesBadge(
-                      width: isDisturb ? 10 : 18,
-                      height: isDisturb ? 10 : 18,
-                      unreadCount: isDisturb ? 0 : uiMsg.unread),
+                  child:
+                      GetBuilder<ConversationController>(builder: (controller) {
+                    return UnreadMessagesBadge(
+                        width: isDisturb ? 10 : 18,
+                        height: isDisturb ? 10 : 18,
+                        unreadCount: isDisturb ? 0 : uiMsg.unread);
+                  }),
                 ),
             ],
           ),
@@ -126,94 +129,21 @@ class ConversationPage extends GetView<ConversationController> {
             children: [
               Expanded(
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: ChannelLastMessageText(
-                    message: uiMsg.wkMsg!,
-                    textStyle: const TextStyle(fontSize: 14),
-                  ),
-                ),
+                    alignment: Alignment.centerLeft,
+                    child: GetBuilder<ConversationController>(
+                        builder: (controller) {
+                      return ChannelLastMessageText(
+                        message: uiMsg.wkMsg!,
+                        textStyle: const TextStyle(fontSize: 14),
+                      );
+                    })),
               ),
-              ChannelLastMessageDate(lastMsgTimestamp: uiMsg.lastMsgTimestamp!)
+              GetBuilder<ConversationController>(builder: (controller) {
+                return ChannelLastMessageDate(
+                    lastMsgTimestamp: uiMsg.lastMsgTimestamp!);
+              })
             ],
           ),
-        ));
-  }
-
-  Widget _buildRow(Chat uiMsg) {
-    return Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.blue),
-              width: 50,
-              alignment: Alignment.center,
-              height: 50,
-              margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Image.network(
-                uiMsg.portrait!,
-                height: 200,
-                width: 200,
-                fit: BoxFit.cover,
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return Image.asset('assets/ic_default_avatar.png');
-                },
-              ),
-            ),
-            Expanded(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        uiMsg.name!,
-                        maxLines: 1,
-                      ),
-                      Expanded(
-                        child: Text(
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 16),
-                          CommonUtils.formatDateTime(uiMsg.lastMsgTimestamp!),
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "",
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 247, 2, 2),
-                            fontSize: 14),
-                        maxLines: 1,
-                      ),
-                      Text(
-                        uiMsg.msg!,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 14),
-                        maxLines: 1,
-                      ),
-                      Expanded(
-                        child: Text(
-                          style: const TextStyle(
-                              color: Colors.red,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                          uiMsg.unread.toString(),
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  )
-                ]))
-          ],
         ));
   }
 }
@@ -234,18 +164,18 @@ class LeftDrawer extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
+                 const Padding(
+                  padding: EdgeInsets.only(
                     bottom: 20.0,
                     left: 8,
                   ),
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
+                        padding: EdgeInsets.only(left: 16.0),
                         child: Text(
                           '菜单',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -258,13 +188,13 @@ class LeftDrawer extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: ListTile(
-                      onTap: () async {
-                        Get.back();
-                        await WKIM.shared.connectionManager.disconnect(true);
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        WKIM.shared.connectionManager.disconnect(true);
                       },
-                      title: Text(
+                      title: const Text(
                         '登出',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14.5,
                         ),
                       ),
@@ -290,7 +220,7 @@ class LeftDrawer extends StatelessWidget {
 }
 
 class ChannelLastMessageDate extends StatelessWidget {
-  ChannelLastMessageDate({
+  const ChannelLastMessageDate({
     super.key,
     required this.lastMsgTimestamp,
     this.textStyle,

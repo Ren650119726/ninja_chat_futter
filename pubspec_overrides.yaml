@@ -1,4 +1,4 @@
 dependency_overrides:
-  wukongimfluttersdk: ^1.4.4
+  wukongimfluttersdk: ^1.4.6
   meta: ^1.10.0
   audio_video_progress_bar: ^2.0.3

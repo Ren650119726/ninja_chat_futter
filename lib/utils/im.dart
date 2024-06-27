@@ -59,16 +59,17 @@ class IMUtils {
         // 这里直接返回了
         // todo 实际情况可通过API请求后返回
         var channel = WKChannel(channelId, channelType);
-        channel.channelName = "【单聊】${channel.channelID}";
+        channel.channelName = "${channel.channelID}";
         var index = channel.channelID.hashCode % imgs.length;
         channel.avatar = imgs[index];
         channel.remoteExtraMap = {'status': 1, 'notice': 'xx'};
         channel.localExtra = {'localStatus': 1, 'localNotice': 'nxx'};
         back(channel);
+
       } else if (channelType == WKChannelType.group) {
         // 获取群资料
         var channel = WKChannel(channelId, channelType);
-        channel.channelName = "【群聊】${channel.channelID}";
+        channel.channelName = "${channel.channelID}";
         var index = channel.channelID.hashCode % imgs.length;
         channel.avatar = imgs[index];
         channel.remoteExtraMap = {'status': 2, 'notice': 'ss'};

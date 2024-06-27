@@ -93,7 +93,6 @@ class Chat {
     if (channel != null) {
       channelAvatar = channel.avatar;
     }
-    print(channelAvatar);
     return channelAvatar;
   }
 

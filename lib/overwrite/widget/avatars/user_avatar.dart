@@ -113,8 +113,7 @@ class UserAvatar extends StatelessWidget {
             Positioned.fill(
               child: Align(
                 alignment: onlineIndicatorAlignment,
-                child: Material(
-                  type: MaterialType.circle,
+                child: Container(
                   child: Container(
                     margin: const EdgeInsets.all(2),
                     constraints: onlineIndicatorConstraints ??
@@ -122,9 +121,6 @@ class UserAvatar extends StatelessWidget {
                           width: 8,
                           height: 8,
                         ),
-                    child: Material(
-                      shape: const CircleBorder(),
-                    ),
                   ),
                 ),
               ),

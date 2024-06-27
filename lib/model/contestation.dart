@@ -1,3 +1,4 @@
+import 'package:ninja_chat/model/message.dart';
 import 'package:wukongimfluttersdk/entity/conversation.dart';
 
 class UIConversation {
@@ -7,6 +8,8 @@ class UIConversation {
   int isMentionMe = 0;
   WKUIConversationMsg msg;
   UIConversation(this.msg);
+  bool? isMuted;
+  Message? lastMessage;
 
   String getUnreadCount() {
     if (msg.unreadCount > 0) {
@@ -14,4 +17,6 @@ class UIConversation {
     }
     return '';
   }
+
+
 }
