@@ -13,7 +13,7 @@ import 'http_client.dart';
 
 const api = "https://api.githubim.com";
 
-var currentUser = User(uid: '333', name: '333',online: true);
+var currentUser = User(uid: '333', name: '333',online: true,avatar: 'https://q9.itc.cn/q_70/images03/20240423/cd1a8cb841594416a20f21b49c784647.jpeg');
 
 class WKIMUtils {
   late String apiURL;

@@ -17,6 +17,7 @@ class Message extends WKMsg {
     msg.wkMsgExtra = value.wkMsgExtra;
     msg.messageID = value.messageID;
     msg.messageSeq = value.messageSeq;
+    msg.fromUID = value.fromUID;
     return msg;
   }
 }

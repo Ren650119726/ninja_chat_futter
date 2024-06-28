@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ninja_chat/core/wkim.dart';
+import 'package:ninja_chat/model/message.dart';
 import 'package:ninja_chat/overwrite/widget/voice/voice.dart';
+import 'package:ninja_chat/styles/colors.dart';
 
+import '../../widget/wallpaper_page.dart';
 import 'chat_controller.dart';
 
 class ChatPage extends GetView<ChatController> {
@@ -49,35 +54,137 @@ class ChatPage extends GetView<ChatController> {
         ),
         body: Column(
           children: <Widget>[
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Obx(() => Text(controller.title.value.tr)),
-                  Divider(height: 1.0),
-                  Container(
-                    child: _buildInputTextComposer(context),
-                    decoration:
-                    BoxDecoration(color: Color.fromRGBO(241, 243, 244, 0.9)),
-                  ),
-                  Divider(height: 1.0),
-                  !_isShowEmoji
-                      ? SizedBox()
-                      : Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(241, 243, 244, 0.9)),
-                      child: _buildEmojiPanelComposer()),
-                  !_isShowExpaned
-                      ? SizedBox()
-                      : Container(
-                      height: _expandedPanelHeight,
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(241, 243, 244, 0.9)),
-                      child: _buildExpandedPanelComposer()),
-                ],
+            Flexible(
+                child: GestureDetector(
+                    child: Obx(
+              () => ListView.separated(
+                reverse: true,
+                shrinkWrap: true,
+                itemCount: controller.msgList.length,
+                itemBuilder: buildItem,
+                separatorBuilder: (BuildContext context, int index) {
+                  return 20.verticalSpace;
+                },
               ),
-            )
+            ))),
+            Divider(height: 1.0),
+            Container(
+              child: _buildInputTextComposer(context),
+              decoration:
+                  BoxDecoration(color: Color.fromRGBO(241, 243, 244, 0.9)),
+            ),
+            Divider(height: 1.0),
+            !_isShowEmoji
+                ? SizedBox()
+                : Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(241, 243, 244, 0.9)),
+                    child: _buildEmojiPanelComposer()),
+            !_isShowExpaned
+                ? SizedBox()
+                : Container(
+                    height: _expandedPanelHeight,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(241, 243, 244, 0.9)),
+                    child: _buildExpandedPanelComposer()),
           ],
         ));
+  }
+
+  /* 绘制单个元素 */
+  Widget? buildItem(BuildContext context, int index) {
+    Message msg = controller.msgList[index];
+    Widget msgContent;
+    if (msg.contentType == 1) {
+      msgContent = Text(
+        msg.messageContent!.content,
+        style: const TextStyle(fontFamily: ""),
+      );
+    } else if (msg.contentType == 2) {
+      msgContent = GestureDetector(
+        onTap: () {
+          showDialog(
+            useSafeArea: false,
+            context: context,
+            builder: (context) {
+              return WallPaperPage(msg.messageContent!.content);
+            },
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(6.r),
+          child: Image.asset(
+            msg.messageContent!.content,
+            fit: BoxFit.cover,
+            width: 0.6.sw,
+            cacheWidth: 360,
+          ),
+        ),
+      );
+    } else {
+      msgContent = const Text("不支持的格式");
+    }
+    return Align(
+      alignment: msg.fromUID == currentUser.uid
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
+      child: getMsgBox(
+        msgContent,
+        color: msg.fromUID == currentUser.uid
+            ? AlColors.msgByMe
+            : AlColors.msgByOther,
+      ),
+    );
+  }
+
+  Widget getMsgBox(Widget child, {bool hasBorder = true, Color? color}) {
+    return hasBorder
+        ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(6.r),
+            ),
+            child: child,
+          )
+        : child;
+  }
+
+  buildItems() {
+    return [
+      buildItem1("images/img/1.png"),
+      buildItem1("images/img/2.png"),
+      buildItem1("images/img/4.jpg"),
+      buildItem1("images/img/5.jpg"),
+      buildItem1("images/img/6.jpg"),
+      buildItem1("images/img/8.png"),
+      buildItem1("images/img/9.jpg"),
+      buildItem1("images/img/13.jpg"),
+      buildItem1("images/img/14.jpg"),
+      buildItem1("images/img/15.jpg"),
+      buildItem1("images/img/16.jpg"),
+      buildItem1("images/img/17.jpg"),
+    ];
+  }
+
+  Widget buildItem1(String image) {
+    return GestureDetector(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.asset(
+              image,
+              fit: BoxFit.cover,
+              cacheWidth: 180,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   /*
@@ -175,7 +282,6 @@ class ChatPage extends GetView<ChatController> {
     //todo 表情
     return Container();
   }
-
 
   /*
    * 点击 + 图标

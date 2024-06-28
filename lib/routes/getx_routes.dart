@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ninja_chat/overwrite/pages/chat/chat_page.dart';
+import 'package:ninja_chat/overwrite/pages/chat2/conversation.dart';
 import 'package:ninja_chat/overwrite/pages/conversation/conversation_page.dart';
 import 'package:ninja_chat/overwrite/pages/login/login/login_page.dart';
 import 'package:ninja_chat/routes/routes.dart';
@@ -15,6 +16,6 @@ List<GetPage> routers = [
   ),
   GetPage(
     name: Routes.CHAT_PAGE.path,
-    page: () => ChatPage(),
+    page: () => ImConversationPage(),
   ),
 ];
