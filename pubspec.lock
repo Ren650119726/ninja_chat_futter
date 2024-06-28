@@ -688,6 +688,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.20"
+  flutter_plugin_record:
+    dependency: "direct overridden"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a15626b9c1040b2ddaa6b4a61c053611496ac139
+      url: "https://github.com/szuwest/flutter_plugin_record.git"
+    source: git
+    version: "1.0.1"
   flutter_portal:
     dependency: transitive
     description:
@@ -899,7 +908,7 @@ packages:
     source: hosted
     version: "2.0.3"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
       sha256: "021834d9c0c3de46bf0fe40341fa07168407f694d9b2bb18d532dc1261867f7a"
@@ -1759,7 +1768,7 @@ packages:
     source: hosted
     version: "3.1.1"
   uuid:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: uuid
       sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
